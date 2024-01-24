@@ -81,7 +81,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Email',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(emailController, "Please Enter your E-Mail", false),
+                      UiHelper.customTextField(emailController, "Please Enter your Email", false),
                       const SizedBox(height: 24),
                       const Text(
                         'Password',

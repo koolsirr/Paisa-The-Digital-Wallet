@@ -43,8 +43,8 @@ class MyApp extends StatelessWidget {
           'notification': (context) => const NotificationPage(),
           'phone': (context) => const PhoneNumber(),
           'verify': (context) => const VerificationPage(),
-          'profile': (context) => ProfilePage(),
-          'statement': (context) => Statement(),
+          'profile': (context) => const ProfilePage(),
+          'statement': (context) => const Statement(),
         }
     );
   }
