@@ -34,19 +34,18 @@ class MyApp extends StatelessWidget {
             inputDecorationTheme: const InputDecorationTheme(
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue)))),
-        home: const LoginScreen(),
-        // initialRoute: 'welcome',
-        // routes: {
-        //   'welcome': (context) => const WelcomeScreen(),
-        //   'login': (context) => const LoginScreen(),
-        //   'register': (context) => const RegisterScreen(),
-        //   'home': (context) => const HomeScreen(),
-        //   'notification': (context) => const NotificationPage(),
-        //   'phone': (context) => const PhoneNumber(),
-        //   'verify': (context) => const VerificationPage(),
-        //   'profile': (context) => ProfilePage(),
-        //   'statement': (context) => Statement(),
-        // }
+        initialRoute: 'welcome',
+        routes: {
+          'welcome': (context) => const WelcomeScreen(),
+          'login': (context) => const LoginScreen(),
+          'register': (context) => const RegisterScreen(),
+          'home': (context) => const HomeScreen(),
+          'notification': (context) => const NotificationPage(),
+          'phone': (context) => const PhoneNumber(),
+          'verify': (context) => const VerificationPage(),
+          'profile': (context) => ProfilePage(),
+          'statement': (context) => Statement(),
+        }
     );
   }
 }
