@@ -37,7 +37,7 @@ class UiHelper{
         actions: [
           TextButton(onPressed: (){
             Navigator.pop(context);
-          }, child: Text("ok"))
+          }, child: const Text("ok"))
         ],
       );
 
