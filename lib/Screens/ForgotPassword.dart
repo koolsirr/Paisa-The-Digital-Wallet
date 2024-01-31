@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 
+import 'LoginScreen.dart';
+
 class ForgotPassword extends StatefulWidget {
   const ForgotPassword({super.key});
 
@@ -17,6 +19,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     }
     else{
       FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+      Navigator.pop(context);
     }
   }
 

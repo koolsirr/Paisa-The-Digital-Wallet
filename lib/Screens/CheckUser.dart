@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/HomeScreen.dart';
 import 'package:majorproject_paisa/Screens/LoginScreen.dart';
+import 'package:majorproject_paisa/Screens/WelcomeScreen.dart';
 
 class CheckUser extends StatefulWidget {
   const CheckUser({super.key});
@@ -19,7 +20,7 @@ class _CheckUserState extends State<CheckUser> {
   checkuser(){
     final user = FirebaseAuth.instance.currentUser;
     if(user!=null){
-      return const HomeScreen();
+      return const WelcomeScreen();
     }
     else{
       return const LoginScreen();
