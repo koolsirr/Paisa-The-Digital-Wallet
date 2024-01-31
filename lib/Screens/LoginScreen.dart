@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:majorproject_paisa/Screens/uihelper.dart';
+import 'package:majorproject_paisa/Screens/UiHelper.dart';
 import 'HomeScreen.dart';
 import 'MainScreen.dart';
 import 'RegisterScreen.dart';

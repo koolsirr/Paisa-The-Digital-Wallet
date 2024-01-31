@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:majorproject_paisa/Screens/Login.dart';
+import 'package:majorproject_paisa/Screens/CheckUser.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/NotificationPage.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
             inputDecorationTheme: const InputDecorationTheme(
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue)))),
-        initialRoute: 'welcome',
+        initialRoute: 'check',
         routes: {
           'welcome': (context) => const WelcomeScreen(),
           'login': (context) => const LoginScreen(),
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
           'verify': (context) => const VerificationPage(),
           'profile': (context) => const ProfilePage(),
           'statement': (context) => const Statement(),
+          'check' : (context) => const CheckUser(),
         }
     );
   }

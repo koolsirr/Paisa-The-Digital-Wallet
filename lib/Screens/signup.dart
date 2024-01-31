@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/Login.dart';
-import 'package:majorproject_paisa/Screens/uihelper.dart';
+import 'package:majorproject_paisa/Screens/UiHelper.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
