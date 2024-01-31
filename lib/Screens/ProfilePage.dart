@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'LoginScreen.dart';
 import 'WelcomeScreen.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -10,6 +12,12 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  logout()async{
+    FirebaseAuth.instance.signOut().then((value) {
+      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>WelcomeScreen() ));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +43,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ListTile(
               leading: Icon(Iconsax.logout),
               title: Text('Logout'),
-              onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => WelcomeScreen(),
-                  ),
-                );
-              },
+              onTap: logout,
             ),
             const ListTile(
               leading: Icon(Iconsax.setting_2),

@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 import 'HomeScreen.dart';
 import 'MainScreen.dart';
@@ -13,28 +14,30 @@ class LoginScreen extends StatefulWidget {
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
-class _LoginScreenState extends State<LoginScreen> {
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
 
-  login(String email,String password)async{
-    if(email=="" && password==""){
+class _LoginScreenState extends State<LoginScreen> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  login(String email, String password) async {
+    if (email == "" && password == "") {
       return UiHelper.customAlertbox(context, "Please Fill the credentials");
-    }
-    else{
+    } else {
       UserCredential? usercredential;
-      try{
-        usercredential = await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password).then((value) {
-          Navigator.push(context, MaterialPageRoute(builder: (context)=>const HomeScreen()));
+      try {
+        usercredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password)
+            .then((value) {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const HomeScreen()));
         });
-      }
-      on FirebaseAuthException catch(ex){
+      } on FirebaseAuthException catch (ex) {
         return UiHelper.customAlertbox(context, ex.code.toString());
       }
     }
   }
-  bool rememberUser = false;
 
+  bool rememberUser = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
       appBar: AppBar(
         elevation: 0,
         leading: Builder(
-        builder: (context) => IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios_rounded,
-              color: Colors.black,
-            ))),
+            builder: (context) => IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.arrow_back_ios_rounded,
+                  color: Colors.black,
+                ))),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -61,14 +64,12 @@ class _LoginScreenState extends State<LoginScreen> {
               children: [
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
-                const Text(
-                  'Welcome back!',
-                  style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.w800,
-                    color: Colors.black,
-                  )
-                ),
+                const Text('Welcome back!',
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w800,
+                      color: Colors.black,
+                    )),
                 const SizedBox(height: 16),
                 const Text('Please login to access'),
                 const SizedBox(height: 32),
@@ -81,13 +82,15 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Email',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(emailController, "Please Enter your Email", false),
+                      UiHelper.customTextField(
+                          emailController, "Please enter your Email", false),
                       const SizedBox(height: 24),
                       const Text(
                         'Password',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(passwordController, "Please Enter your Password", true),
+                      UiHelper.customTextField(passwordController,
+                          "Please enter your Password", true),
                       const SizedBox(height: 12),
                       Row(
                         children: [
@@ -97,8 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 setState(() {
                                   rememberUser = value!;
                                 });
-                              }
-                              ),
+                              }),
                           const Text('Remember Me'),
                           const SizedBox(
                             width: 90,
@@ -110,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 UiHelper.customButtom(() {
-                  login(emailController.text.toString(), passwordController.text.toString());
+                  login(emailController.text.toString(),
+                      passwordController.text.toString());
                 }, "Log in"),
                 const SizedBox(height: 16),
                 RichText(
@@ -121,16 +124,31 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextSpan(
                         text: 'Sign up',
                         style: const TextStyle(color: Colors.blueAccent),
-                        recognizer: TapGestureRecognizer()..onTap = () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(builder: (context) => const RegisterScreen())
-                          );
-                        },
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegisterScreen()));
+                          },
                       ),
                     ],
                   ),
                 ),
+                const SizedBox(height: 16),
+                TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ForgotPassword()));
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                          color: Colors.blueAccent),
+                    ))
               ],
             ),
           ),
@@ -139,5 +157,3 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
-
-

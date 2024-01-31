@@ -1,5 +1,8 @@
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
 import 'package:majorproject_paisa/Screens/Login.dart';
 import 'package:majorproject_paisa/Screens/CheckUser.dart';
 import 'Screens/HomeScreen.dart';
@@ -24,6 +27,7 @@ Future<void> main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -47,6 +51,7 @@ class MyApp extends StatelessWidget {
           'profile': (context) => const ProfilePage(),
           'statement': (context) => const Statement(),
           'check' : (context) => const CheckUser(),
+          'forgot' : (context) => const ForgotPassword(),
         }
     );
   }
