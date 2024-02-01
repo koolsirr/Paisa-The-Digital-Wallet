@@ -30,7 +30,7 @@ class _MainScreenState extends State<MainScreen> {
                 decoration: const BoxDecoration(
                     // color: Colors.grey,
                     gradient: LinearGradient(
-                      colors: [Colors.grey, Colors.greenAccent],
+                      colors: [Colors.blueAccent, Colors.blueGrey],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
