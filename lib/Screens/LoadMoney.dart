@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/Banks.dart';
 
+import '../main.dart';
 import 'UiHelper.dart';
 
 class LoadMoney extends StatefulWidget {
@@ -19,8 +20,7 @@ class _LoadMoneyState extends State<LoadMoney> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Load Money',
-            style: TextStyle(color: Colors.black)),
+        title: const Text('Load Money', style: TextStyle(color: Colors.black)),
         leading: Builder(
             builder: (context) => IconButton(
                 onPressed: () {
@@ -47,21 +47,22 @@ class _LoadMoneyState extends State<LoadMoney> {
                         'Choose the bank you wanna load your wallet',
                       ),
                       const SizedBox(height: 12),
-                      Banks(),
+                      const Banks(),
                       const SizedBox(height: 24),
                       const Text(
                         'Amount',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(amountController,
-                          "Please enter the Amount", false,true
+                      UiHelper.customTextField(
+                        amountController,
+                        "Please enter the Amount",
+                        false,
+                        true,
                       ),
-                      const SizedBox(height: 12),
                       const SizedBox(height: 12),
                     ],
                   ),
                 ),
-
               ],
             ),
           ),

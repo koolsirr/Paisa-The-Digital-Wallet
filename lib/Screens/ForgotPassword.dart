@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 
+import '../main.dart';
 import 'LoginScreen.dart';
 
 class ForgotPassword extends StatefulWidget {

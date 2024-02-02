@@ -4,6 +4,7 @@ import 'package:iconsax/iconsax.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
+import '../main.dart';
 import 'HomeScreen.dart';
 import 'MainScreen.dart';
 import 'RegisterScreen.dart';
@@ -81,14 +82,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
-                          emailController, "Please enter your Email", false,false),
+                          emailController, "Please enter your Email", false,false
+                        ),
                       const SizedBox(height: 24),
                       const Text(
                         'Password',
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(passwordController,
-                          "Please enter your Password", true,false),
+                          "Please enter your Password",true,false,),
                       const SizedBox(height: 12),
                       const SizedBox(height: 12),
                     ],

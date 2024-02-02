@@ -4,7 +4,12 @@ import 'package:flutter/services.dart';
 
 class UiHelper {
   static customTextField(
-      TextEditingController controller, String text, bool toHide,bool allowOnlyNumbers) {
+    TextEditingController controller,
+    String text,
+    bool toHide,
+    bool allowOnlyNumbers,
+
+  ) {
     List<TextInputFormatter>? inputFormatters;
 
     if (allowOnlyNumbers) {

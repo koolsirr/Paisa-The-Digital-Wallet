@@ -5,9 +5,9 @@ import 'package:iconsax/iconsax.dart';
 import 'package:majorproject_paisa/Screens/LoginScreen.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 
+import '../main.dart';
 import 'HomeScreen.dart';
 import 'PhoneNumber.dart';
-
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -15,11 +15,12 @@ class RegisterScreen extends StatefulWidget {
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
 }
+
 class _RegisterScreenState extends State<RegisterScreen> {
-  TextEditingController emailController=TextEditingController();
-  TextEditingController passwordController=TextEditingController();
-  TextEditingController nameController=TextEditingController();
-  TextEditingController userNameController=TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController userNameController = TextEditingController();
 
   signUp(String email, String password) async {
     if (email == "" && password == "") {
@@ -30,10 +31,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       usercredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password)
           .then((value) {
-        Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LoginScreen())
-        );
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
         return null;
       });
     } on FirebaseAuthException catch (ex) {
@@ -70,9 +69,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 Text(
                   'Sign Up',
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
+                        fontWeight: FontWeight.w600,
+                        color: Colors.black,
+                      ),
                 ),
                 const SizedBox(height: 16),
                 const Text('Please fill up the Form'),
@@ -86,35 +85,56 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(nameController, "Please Enter your Name", false,false),
+                      UiHelper.customTextField(
+                        nameController,
+                        "Please Enter your Name",
+                        false,
+                        false,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         'User Name',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(userNameController, "Please Enter your User Name", false,false),
+                      UiHelper.customTextField(
+                        userNameController,
+                        "Please Enter your User Name",
+                        false,
+                        false,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         'Email',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(emailController, "Please Enter your E-Mail", false,false),
+                      UiHelper.customTextField(
+                        emailController,
+                        "Please Enter your E-Mail",
+                        false,
+                        false,
+                      ),
                       const SizedBox(height: 24),
                       Text(
                         'Password',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(passwordController, "Please Enter your Password", true,false),
+                      UiHelper.customTextField(
+                        passwordController,
+                        "Please Enter your Password",
+                        true,
+                        false,
+                      ),
                       const SizedBox(height: 24),
                     ],
                   ),
                 ),
-            UiHelper.customButtom(() {
-              signUp(emailController.text.toString(),passwordController.text.toString());
-            }, "Signup")
+                UiHelper.customButtom(() {
+                  signUp(emailController.text.toString(),
+                      passwordController.text.toString());
+                }, "Signup")
               ],
             ),
           ),

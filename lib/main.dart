@@ -24,6 +24,8 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
+bool hidePassword = true;
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 

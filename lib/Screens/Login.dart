@@ -5,6 +5,8 @@ import 'package:majorproject_paisa/Screens/Statements.dart';
 import 'package:majorproject_paisa/Screens/signup.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 
+import '../main.dart';
+
 class Login extends StatefulWidget {
   const Login({super.key});
 

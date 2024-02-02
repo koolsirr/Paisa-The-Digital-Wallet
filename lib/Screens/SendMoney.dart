@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../main.dart';
 import 'UiHelper.dart';
 
 class SendMoney extends StatefulWidget {
@@ -11,7 +12,6 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
-
   TextEditingController userNameController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   @override
@@ -20,8 +20,7 @@ class _SendMoneyState extends State<SendMoney> {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        title: const Text('Send Money',
-            style: TextStyle(color: Colors.black)),
+        title: const Text('Send Money', style: TextStyle(color: Colors.black)),
         leading: Builder(
             builder: (context) => IconButton(
                 onPressed: () {
@@ -49,20 +48,27 @@ class _SendMoneyState extends State<SendMoney> {
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
-                          userNameController, "Please enter the Username", false,false),
+                        userNameController,
+                        "Please enter the Username",
+                        false,
+                        false,
+                      ),
                       const SizedBox(height: 24),
                       const Text(
                         'Amount',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(amountController,
-                          "Please enter the Amount", false,true),
+                      UiHelper.customTextField(
+                        amountController,
+                        "Please enter the Amount",
+                        false,
+                        true,
+                      ),
                       const SizedBox(height: 12),
                       const SizedBox(height: 12),
                     ],
                   ),
                 ),
-
               ],
             ),
           ),

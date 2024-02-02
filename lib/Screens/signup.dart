@@ -15,6 +15,7 @@ class _SignUpState extends State<SignUp> {
 
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
+  bool hidePassword = true;
   signUp(String email, String password) async {
     if (email == "" && password == "") {
       UiHelper.customAlertbox(context, "Empty");
@@ -41,8 +42,11 @@ class _SignUpState extends State<SignUp> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          UiHelper.customTextField(emailController, "Email", false,true),
-          UiHelper.customTextField(passwordController, "Password", true,false),
+          UiHelper.customTextField(emailController, "Email", false,true,
+          ),
+          UiHelper.customTextField(passwordController, "Password", true,false,
+
+          ),
           UiHelper.customButtom(() {
             signUp(emailController.text.toString(),passwordController.text.toString());
           }, "Signup")
