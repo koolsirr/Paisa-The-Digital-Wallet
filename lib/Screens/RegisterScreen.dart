@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -15,14 +18,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController userNameController = TextEditingController();
-  TextEditingController yearController = TextEditingController();
-  TextEditingController monthController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-  TextEditingController districtController = TextEditingController();
-  TextEditingController metroController = TextEditingController();
-  TextEditingController wardController = TextEditingController();
-
   signUp(String email, String password) async {
     if (email == "" && password == "") {
       UiHelper.customAlertbox(context, "Please fill the form");
@@ -90,98 +85,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         false,
                       ),
                       const SizedBox(height: 24),
-                      Text(
-                        'Citizenship No.',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: 12),
-                      UiHelper.customTextField(
-                        nameController,
-                        "Please Enter your Citizenship No.",
-                        false,
-                        false,
-                      ),
-                      const SizedBox(height: 24),
-                      Text(
-                        'Date of Birth (AD)',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: 12),
-                      Row(children: [
-                        Expanded(
-                          child: UiHelper.customTextField(
-                            yearController,
-                            "Year",
-                            false,
-                            true,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Expanded(
-                          child: UiHelper.customTextField(
-                            monthController,
-                            "Month",
-                            false,
-                            true,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Expanded(
-                          child: UiHelper.customTextField(
-                            dateController,
-                            "Date",
-                            false,
-                            true,
-                          ),
-                        )
-                      ]),
-                      const SizedBox(height: 24),
-                      Text(
-                        'Birth Place',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: 12),
-                      Row(children: [
-                        Expanded(
-                          child: UiHelper.customTextField(
-                            districtController,
-                            "District",
-                            false,
-                            false,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Expanded(
-                          child: UiHelper.customTextField(
-                            metroController,
-                            "Metropolitan",
-                            false,
-                            false,
-                          ),
-                        ),
-                        SizedBox(width: 15),
-                        Expanded(
-                          child: UiHelper.customTextField(
-                            wardController,
-                            "Ward No.",
-                            false,
-                            true,
-                          ),
-                        )
-                      ]),
-                      const SizedBox(height: 24),
-                      Text(
-                        'User Name',
-                        style: Theme.of(context).textTheme.titleSmall,
-                      ),
-                      const SizedBox(height: 12),
-                      UiHelper.customTextField(
-                        userNameController,
-                        "Please Enter your User Name",
-                        false,
-                        false,
-                      ),
-                      const SizedBox(height: 24),
+
                       Text(
                         'Email',
                         style: Theme.of(context).textTheme.titleSmall,

@@ -13,6 +13,7 @@ import 'Screens/PhoneNumber.dart';
 import 'Screens/ProfilePage.dart';
 import 'Screens/RegisterScreen.dart';
 import 'Screens/Statements.dart';
+import 'Screens/UpdateProfile.dart';
 import 'Screens/VerificationPage.dart';
 import 'Screens/WelcomeScreen.dart';
 import 'firebase_options.dart';
@@ -57,7 +58,8 @@ class MyApp extends StatelessWidget {
           'forgot' : (context) => const ForgotPassword(),
           'send' : (context) => const SendMoney(),
           'load' : (context) => const LoadMoney(),
-          'show' : (context) => const ShowData()
+          'show' : (context) => const ShowData(),
+          'update' : (context) => const UpdateProfile(),
         }
     );
   }
