@@ -13,10 +13,9 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  logout() async {
+  logout()async{
     FirebaseAuth.instance.signOut().then((value) {
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const WelcomeScreen()));
+      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>const WelcomeScreen() ));
     });
   }
 
@@ -24,40 +23,40 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ListView(
-        children: [
-          UserAccountsDrawerHeader(
-            accountName: const Text('Bishal Manandhar',
-                style: TextStyle(color: Colors.black)),
-            accountEmail: const Text(
-              "Email.com",
-              style: TextStyle(color: Colors.black),
+        body:ListView(
+          children: [
+            UserAccountsDrawerHeader(
+              accountName: const Text('Bishal Manandhar',
+                  style: TextStyle(color: Colors.black)),
+              accountEmail: const Text(
+                "Email.com",
+                style: TextStyle(color: Colors.black),
+              ),
+              currentAccountPicture: CircleAvatar(
+                child: ClipOval(child: Image.asset('assets/images/pic.png')),
+              ),
+              decoration: const BoxDecoration(color: Colors.transparent),
             ),
-            currentAccountPicture: CircleAvatar(
-              child: ClipOval(child: Image.asset('assets/images/pic.png')),
+             ListTile(
+              leading: Icon(Iconsax.document_upload),
+              title: Text('Update Profile'),
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => UpdateProfile()));
+              }
             ),
-            decoration: const BoxDecoration(color: Colors.transparent),
-          ),
-          const ListTile(
-            leading: Icon(Iconsax.document_upload),
-            title: Text('Update Profile'),
-          ),
-          ListTile(
-            leading: const Icon(Iconsax.logout),
-            title: const Text('Logout'),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const UpdateProfile()),
-              );
-            },
-          ),
-          const ListTile(
-            leading: Icon(Iconsax.setting_2),
-            title: Text('Settings'),
-          ),
-        ],
-      ),
+            ListTile(
+              leading: const Icon(Iconsax.logout),
+              title: const Text('Logout'),
+              onTap: logout,
+            ),
+            const ListTile(
+              leading: Icon(Iconsax.setting_2),
+              title: Text('Settings'),
+            ),
+          ],
+        ),
     );
   }
 }
