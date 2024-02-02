@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:majorproject_paisa/Screens/LoadMoney.dart';
+import 'package:majorproject_paisa/Screens/SendMoney.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -93,28 +95,73 @@ class _MainScreenState extends State<MainScreen> {
                   padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
                   child: Row(
                     children: [
-                      Container(
-                        width: 151,
-                        decoration: BoxDecoration(
-                            // color: Colors.black,
-                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          border: Border.all(
-                              color: Colors.black,
-                              width: 2
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                  const LoadMoney()));
+                        },
+                        child: Container(
+                          width: 151,
+                          decoration: BoxDecoration(
+                              // color: Colors.black,
+                            borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(
+                                color: Colors.black,
+                                width: 2
+                          ),
                         ),
-                      ),),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Column(
+                              children: [
+                                Icon(Iconsax.wallet_add_14,size: 26,),
+                                // const SizedBox(height: 8.0),
+                                Text(
+                                  'Load Money',
+                                  style: TextStyle(fontSize: 15.0),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                        const SizedBox(
                         width: 10,
                       ),
-                      Container(
-                        width: 151,
-                        decoration: BoxDecoration(
-                          // color: Colors.blue,
-                          borderRadius: const BorderRadius.all(Radius.circular(20)),
-                          border: Border.all(
-                            color: Colors.black,
-                            width: 2
-                          )
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                  const SendMoney()));
+                        },
+                        child: Container(
+                          width: 151,
+                          decoration: BoxDecoration(
+                            // color: Colors.blue,
+                            borderRadius: const BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 2
+                            )
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Column(
+                            children: [
+                              Icon(Iconsax.wallet_minus4,size: 26,),
+                              // const SizedBox(height: 8.0),
+                              Text(
+                                'Send Money',
+                                style: TextStyle(fontSize: 15.0),
+                              ),
+                            ],
+                                                    ),
+                          ),
                         ),
                       ),
                     ],

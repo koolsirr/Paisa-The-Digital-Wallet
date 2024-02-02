@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
+import 'package:majorproject_paisa/Screens/LoadMoney.dart';
 import 'package:majorproject_paisa/Screens/Login.dart';
 import 'package:majorproject_paisa/Screens/CheckUser.dart';
+import 'package:majorproject_paisa/Screens/SendMoney.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/NotificationPage.dart';
@@ -52,6 +54,8 @@ class MyApp extends StatelessWidget {
           'statement': (context) => const Statement(),
           'check' : (context) => const CheckUser(),
           'forgot' : (context) => const ForgotPassword(),
+          'send' : (context) => const SendMoney(),
+          'load' : (context) => const LoadMoney(),
         }
     );
   }
