@@ -19,10 +19,11 @@ class _MainScreenState extends State<MainScreen> {
       isHidden = !isHidden;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+        backgroundColor: Colors.white,
         body: Padding(
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
           child: Column(
@@ -36,16 +37,14 @@ class _MainScreenState extends State<MainScreen> {
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
-
-                    borderRadius: BorderRadius.all(Radius.circular(30))
-                ),
+                    borderRadius: BorderRadius.all(Radius.circular(30))),
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       const SizedBox(
                         width: 50,
-                        child: Icon(Iconsax.wallet_money,size: 35),
+                        child: Icon(Iconsax.wallet_money, size: 35),
                       ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 17),
@@ -53,31 +52,34 @@ class _MainScreenState extends State<MainScreen> {
                           child: Row(
                             children: [
                               const SizedBox(
-                                height: 40,width: 35,
+                                height: 40,
+                                width: 35,
                                 child: Text("Rs.",
-                                    style:TextStyle(
+                                    style: TextStyle(
                                       fontSize: 25,
-                                    )
-                                ),
+                                    )),
                               ),
                               SizedBox(
-                                height: 40,width: 200,
-                                child:
-                                 isHidden ? const Text(
-                                     'xxxxx',
-                                   style: TextStyle(
-                                     fontSize: 25
-                                   ),
-                                 ) : const Text(
-                                     '1000', //moneyyyy
-                                 style: TextStyle(
-                                   fontSize: 25
-                                 ),),
-                                ),
+                                height: 40,
+                                width: 200,
+                                child: isHidden
+                                    ? const Text(
+                                        'xxxxx',
+                                        style: TextStyle(fontSize: 25),
+                                      )
+                                    : const Text(
+                                        '1000', //moneyyyy
+                                        style: TextStyle(fontSize: 25),
+                                      ),
+                              ),
                               SizedBox(
                                 width: 50,
                                 child: IconButton(
-                                  icon: Icon(isHidden ? Iconsax.eye : Iconsax.eye_slash,size: 25,color: Colors.black,),
+                                  icon: Icon(
+                                    isHidden ? Iconsax.eye : Iconsax.eye_slash,
+                                    size: 25,
+                                    color: Colors.black,
+                                  ),
                                   onPressed: toggleHidden,
                                 ),
                               )
@@ -92,7 +94,8 @@ class _MainScreenState extends State<MainScreen> {
               SizedBox(
                 height: 90,
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 20),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -100,24 +103,21 @@ class _MainScreenState extends State<MainScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                  const LoadMoney()));
+                                  builder: (context) => const LoadMoney()));
                         },
                         child: Container(
                           width: 151,
                           decoration: BoxDecoration(
-                              // color: Colors.black,
-                            borderRadius: const BorderRadius.all(Radius.circular(20)),
-                            border: Border.all(
-                                color: Colors.black,
-                                width: 2
+                            // color: Colors.black,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(20)),
+                            border: Border.all(color: Colors.black, width: 2),
                           ),
-                        ),
                           child: const Padding(
                             padding: EdgeInsets.all(12.0),
                             child: Column(
                               children: [
-                                Icon(Iconsax.wallet_add_14,size: 26,),
+                                Icon(Iconsax.wallet_add_14, size: 26),
                                 // const SizedBox(height: 8.0),
                                 Text(
                                   'Load Money',
@@ -128,7 +128,7 @@ class _MainScreenState extends State<MainScreen> {
                           ),
                         ),
                       ),
-                       const SizedBox(
+                      const SizedBox(
                         width: 10,
                       ),
                       GestureDetector(
@@ -136,38 +136,37 @@ class _MainScreenState extends State<MainScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>
-                                  const SendMoney()));
+                                  builder: (context) => const SendMoney()));
                         },
                         child: Container(
                           width: 151,
                           decoration: BoxDecoration(
-                            // color: Colors.blue,
-                            borderRadius: const BorderRadius.all(Radius.circular(20)),
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 2
-                            )
-                          ),
+                              // color: Colors.blue,
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(20)),
+                              border:
+                                  Border.all(color: Colors.black, width: 2)),
                           child: const Padding(
                             padding: EdgeInsets.all(12.0),
                             child: Column(
-                            children: [
-                              Icon(Iconsax.wallet_minus4,size: 26,),
-                              // const SizedBox(height: 8.0),
-                              Text(
-                                'Send Money',
-                                style: TextStyle(fontSize: 15.0),
-                              ),
-                            ],
-                                                    ),
+                              children: [
+                                Icon(
+                                  Iconsax.wallet_minus4,
+                                  size: 26,
+                                ),
+                                // const SizedBox(height: 8.0),
+                                Text(
+                                  'Send Money',
+                                  style: TextStyle(fontSize: 15.0),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
                     ],
                   ),
                 ),
-
               ),
               const SizedBox(
                 height: 5,
@@ -178,7 +177,6 @@ class _MainScreenState extends State<MainScreen> {
               ),
             ],
           ),
-        )
-    );
+        ));
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UiHelper{
-  static customTextField(TextEditingController controller,String text, bool toHide) {
+class UiHelper {
+  static customTextField(
+      TextEditingController controller, String text, bool toHide) {
     return TextFormField(
       controller: controller,
       obscureText: toHide,
@@ -13,36 +14,37 @@ class UiHelper{
       ),
     );
   }
-  static customButtom(VoidCallback voidCallback,String text){
+
+  static customButtom(VoidCallback voidCallback, String text) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: ElevatedButton(
         style: ButtonStyle(
-            minimumSize: MaterialStateProperty.all(
-                const Size(double.infinity, 48)),
-            backgroundColor: const MaterialStatePropertyAll(Colors.blueAccent)
-        ),
+            minimumSize:
+                MaterialStateProperty.all(const Size(double.infinity, 48)),
+            backgroundColor: const MaterialStatePropertyAll(Colors.blueAccent)),
         onPressed: () {
           voidCallback();
         },
-        child: Text(text,style:
-        TextStyle(color: Colors.white)),
+        child: Text(text, style: TextStyle(color: Colors.white)),
       ),
     );
   }
-  static customAlertbox(BuildContext context,String text){
-    return showDialog(context: context,builder: (BuildContext context){
-      return AlertDialog(
-        title: Text(text),
-        actions: [
-          TextButton(onPressed: (){
-            Navigator.pop(context);
-          }, child: const Text("ok"))
-        ],
-      );
 
-    });
-
+  static customAlertbox(BuildContext context, String text) {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(text),
+            actions: [
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: const Text("ok"))
+            ],
+          );
+        });
   }
 }
-

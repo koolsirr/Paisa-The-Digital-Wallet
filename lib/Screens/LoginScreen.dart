@@ -37,8 +37,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  bool rememberUser = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,21 +90,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       UiHelper.customTextField(passwordController,
                           "Please enter your Password", true),
                       const SizedBox(height: 12),
-                      Row(
-                        children: [
-                          Checkbox(
-                              value: rememberUser,
-                              onChanged: (value) {
-                                setState(() {
-                                  rememberUser = value!;
-                                });
-                              }),
-                          const Text('Remember Me'),
-                          const SizedBox(
-                            width: 90,
-                          ),
-                        ],
-                      ),
                       const SizedBox(height: 12),
                     ],
                   ),

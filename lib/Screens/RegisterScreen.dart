@@ -19,10 +19,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController=TextEditingController();
   TextEditingController passwordController=TextEditingController();
   TextEditingController nameController=TextEditingController();
+  TextEditingController userNameController=TextEditingController();
 
   signUp(String email, String password) async {
     if (email == "" && password == "") {
-      UiHelper.customAlertbox(context, "Empty");
+      UiHelper.customAlertbox(context, "Please fill the form");
     }
     UserCredential? usercredential;
     try {
@@ -86,6 +87,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(nameController, "Please Enter your Name", false),
+                      const SizedBox(height: 24),
+                      Text(
+                        'User Name',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 12),
+                      UiHelper.customTextField(userNameController, "Please Enter your User Name", false),
                       const SizedBox(height: 24),
                       Text(
                         'Email',
