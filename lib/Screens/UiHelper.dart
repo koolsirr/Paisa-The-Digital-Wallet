@@ -1,17 +1,25 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class UiHelper {
   static customTextField(
-      TextEditingController controller, String text, bool toHide) {
+      TextEditingController controller, String text, bool toHide,bool allowOnlyNumbers) {
+    List<TextInputFormatter>? inputFormatters;
+
+    if (allowOnlyNumbers) {
+      inputFormatters = [FilteringTextInputFormatter.digitsOnly];
+    }
     return TextFormField(
       controller: controller,
       obscureText: toHide,
       textInputAction: TextInputAction.next,
       cursorColor: Colors.black,
+      keyboardType: allowOnlyNumbers ? TextInputType.number : null,
       decoration: InputDecoration(
         hintText: text,
       ),
+      inputFormatters: inputFormatters,
     );
   }
 

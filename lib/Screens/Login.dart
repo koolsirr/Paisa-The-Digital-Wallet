@@ -39,8 +39,8 @@ class _LoginState extends State<Login> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          UiHelper.customTextField(emailController, "Please Enter your E-Mail", false),
-          UiHelper.customTextField(passwordController, "Please Enter your Password", true),
+          UiHelper.customTextField(emailController, "Please Enter your E-Mail", false,false),
+          UiHelper.customTextField(passwordController, "Please Enter your Password", true,false),
           SizedBox(height: 30),
           UiHelper.customButtom(() { 
             login(emailController.text.toString(), passwordController.text.toString());

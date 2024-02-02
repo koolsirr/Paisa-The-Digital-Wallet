@@ -41,8 +41,8 @@ class _SignUpState extends State<SignUp> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          UiHelper.customTextField(emailController, "Email", false),
-          UiHelper.customTextField(passwordController, "Passwprd", true),
+          UiHelper.customTextField(emailController, "Email", false,true),
+          UiHelper.customTextField(passwordController, "Password", true,false),
           UiHelper.customButtom(() {
             signUp(emailController.text.toString(),passwordController.text.toString());
           }, "Signup")

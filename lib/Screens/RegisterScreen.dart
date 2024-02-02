@@ -10,7 +10,7 @@ import 'PhoneNumber.dart';
 
 
 class RegisterScreen extends StatefulWidget {
-  const RegisterScreen({Key? key}) : super(key: key);
+  const RegisterScreen({super.key});
 
   @override
   State<RegisterScreen> createState() => _RegisterScreenState();
@@ -86,28 +86,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(nameController, "Please Enter your Name", false),
+                      UiHelper.customTextField(nameController, "Please Enter your Name", false,false),
                       const SizedBox(height: 24),
                       Text(
                         'User Name',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(userNameController, "Please Enter your User Name", false),
+                      UiHelper.customTextField(userNameController, "Please Enter your User Name", false,false),
                       const SizedBox(height: 24),
                       Text(
                         'Email',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(emailController, "Please Enter your E-Mail", false),
+                      UiHelper.customTextField(emailController, "Please Enter your E-Mail", false,false),
                       const SizedBox(height: 24),
                       Text(
                         'Password',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(passwordController, "Please Enter your Password", true),
+                      UiHelper.customTextField(passwordController, "Please Enter your Password", true,false),
                       const SizedBox(height: 24),
                     ],
                   ),

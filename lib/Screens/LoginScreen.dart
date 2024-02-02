@@ -81,14 +81,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
-                          emailController, "Please enter your Email", false),
+                          emailController, "Please enter your Email", false,false),
                       const SizedBox(height: 24),
                       const Text(
                         'Password',
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(passwordController,
-                          "Please enter your Password", true),
+                          "Please enter your Password", true,false),
                       const SizedBox(height: 12),
                       const SizedBox(height: 12),
                     ],

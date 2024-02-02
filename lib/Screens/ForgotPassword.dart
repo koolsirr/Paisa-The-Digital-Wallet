@@ -35,7 +35,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          UiHelper.customTextField(emailController, "Please enter your Email", false),
+          UiHelper.customTextField(emailController, "Please enter your Email", false,false),
           const SizedBox(height: 20),
           UiHelper.customButtom(() {
             forgotpassword(emailController.text.toString());
