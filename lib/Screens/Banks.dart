@@ -9,7 +9,6 @@ class Banks extends StatefulWidget {
 }
 
 class _BanksState extends State<Banks> {
-
   List<String> items = ['Bank 1', 'Bank 2', 'Bank 3', 'Bank 4'];
 
   String selectedItem = 'Bank 1';

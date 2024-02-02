@@ -81,16 +81,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         'Email',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(
-                          emailController, "Please enter your Email", false,false
-                        ),
+                      UiHelper.customTextField(emailController,
+                          "Please enter your Email", false, false),
                       const SizedBox(height: 24),
                       const Text(
                         'Password',
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(passwordController,
-                          "Please enter your Password",true,false,),
+                      UiHelper.customTextField(
+                        passwordController,
+                        "Please enter your Password",
+                        true,
+                        false,
+                      ),
                       const SizedBox(height: 12),
                       const SizedBox(height: 12),
                     ],
@@ -131,8 +134,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     child: const Text(
                       "Forgot Password?",
-                      style: TextStyle(
-                          color: Colors.blueAccent),
+                      style: TextStyle(color: Colors.blueAccent),
                     ))
               ],
             ),

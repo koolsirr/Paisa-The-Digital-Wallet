@@ -17,12 +17,11 @@ class _CheckUserState extends State<CheckUser> {
     return checkuser();
   }
 
-  checkuser(){
+  checkuser() {
     final user = FirebaseAuth.instance.currentUser;
-    if(user!=null){
+    if (user != null) {
       return const HomeScreen();
-    }
-    else{
+    } else {
       return const WelcomeScreen();
     }
   }

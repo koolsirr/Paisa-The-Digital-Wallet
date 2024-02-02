@@ -13,12 +13,12 @@ class ForgotPassword extends StatefulWidget {
 }
 
 class _ForgotPasswordState extends State<ForgotPassword> {
-  TextEditingController emailController=TextEditingController();
-  forgotpassword(String email)async{
-    if(email==""){
-      return UiHelper.customAlertbox(context, "Enter an Email to Reset Password");
-    }
-    else{
+  TextEditingController emailController = TextEditingController();
+  forgotpassword(String email) async {
+    if (email == "") {
+      return UiHelper.customAlertbox(
+          context, "Enter an Email to Reset Password");
+    } else {
       FirebaseAuth.instance.sendPasswordResetEmail(email: email);
       Navigator.pop(context);
     }
@@ -36,12 +36,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-          UiHelper.customTextField(emailController, "Please enter your Email", false,false),
-          const SizedBox(height: 20),
-          UiHelper.customButtom(() {
-            forgotpassword(emailController.text.toString());
-          }, "Reset Password")
-        ],),
+            UiHelper.customTextField(
+                emailController, "Please enter your Email", false, false),
+            const SizedBox(height: 20),
+            UiHelper.customButtom(() {
+              forgotpassword(emailController.text.toString());
+            }, "Reset Password")
+          ],
+        ),
       ),
     );
   }

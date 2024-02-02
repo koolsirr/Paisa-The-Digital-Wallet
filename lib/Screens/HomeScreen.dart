@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         iconTheme: const CupertinoIconThemeData(color: Colors.black),
       ),
       bottomNavigationBar: CurvedNavigationBar(
-         animationDuration: const Duration(milliseconds: 500),
+        animationDuration: const Duration(milliseconds: 500),
         backgroundColor: Colors.transparent,
         buttonBackgroundColor: Colors.greenAccent,
         color: Colors.blueAccent,
