@@ -1,12 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:iconsax/iconsax.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
-import '../main.dart';
 import 'HomeScreen.dart';
-import 'MainScreen.dart';
 import 'RegisterScreen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -31,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
             .then((value) {
           Navigator.push(context,
               MaterialPageRoute(builder: (context) => const HomeScreen()));
+          return null;
         });
       } on FirebaseAuthException catch (ex) {
         return UiHelper.customAlertbox(context, ex.code.toString());

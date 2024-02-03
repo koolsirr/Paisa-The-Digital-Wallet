@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:iconsax/iconsax.dart';
-
+import 'FetchUserData.dart';
 import 'MainScreen.dart';
 import 'NotificationPage.dart';
 import 'ProfilePage.dart';
@@ -17,6 +17,23 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 1;
+  String? userName;
+
+  @override
+  void initState() {
+    super.initState();
+    // Set the callback function
+    UserDataService.onUserDataUpdated = _fetchUserData;
+    // Call the function during initialization
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    userName = await UserDataService.fetchUserData('Full Name');
+
+    setState(() {});
+  }
+
   final List<Widget> _screens = [
     const Statement(),
     const MainScreen(),
@@ -27,9 +44,8 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _screens[_currentIndex],
       appBar: AppBar(
-        title: const Text("Hi, Bishal"),
+        title: Text('Hi, $userName'),
         automaticallyImplyLeading: false,
         actions: [
           Builder(
@@ -46,6 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
         iconTheme: const CupertinoIconThemeData(color: Colors.black),
       ),
+      body: _screens[_currentIndex],
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: const Duration(milliseconds: 500),
         backgroundColor: Colors.transparent,

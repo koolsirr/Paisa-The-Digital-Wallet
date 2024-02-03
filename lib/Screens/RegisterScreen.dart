@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,21 +16,29 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  signUp(String email, String password) async {
-    if (email == "" && password == "") {
+
+  Future<void> signUp(String email, String password, String fullName) async {
+    if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
       UiHelper.customAlertbox(context, "Please fill the form");
+      return;
     }
     UserCredential? usercredential;
     try {
-      usercredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password)
-          .then((value) {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const LoginScreen()));
-        return null;
+      UserCredential userCredential = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      // Add user data to Firestore with email as the document ID
+      await FirebaseFirestore.instance.collection('Users').doc(email).set({
+        'Email': email,
+        'Full Name': fullName,
+        // Add any other user-related data
       });
+
+      // Navigate to the next screen (replace current screen)
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const LoginScreen()));
     } on FirebaseAuthException catch (ex) {
-      return UiHelper.customAlertbox(context, ex.code.toString());
+      UiHelper.customAlertbox(context, "Registration failed: ${ex.message}");
     }
   }
 
@@ -85,7 +91,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         false,
                       ),
                       const SizedBox(height: 24),
-
                       Text(
                         'Email',
                         style: Theme.of(context).textTheme.titleSmall,
@@ -114,9 +119,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 UiHelper.customButtom(() {
-                  signUp(emailController.text.toString(),
-                      passwordController.text.toString());
-                }, "Signup")
+                  signUp(emailController.text, passwordController.text,
+                      nameController.text);
+                }, "Signup"),
+                // UiHelper.customButtom(() {
+                //   signUp(emailController.text.toString(),
+                //       passwordController.text.toString());
+                // }, "Signup")
               ],
             ),
           ),
