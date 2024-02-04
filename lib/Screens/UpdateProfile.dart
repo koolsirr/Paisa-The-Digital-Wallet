@@ -11,6 +11,9 @@ class UpdateProfile extends StatefulWidget {
 }
 
 class _UpdateProfileState extends State<UpdateProfile> {
+  bool isValidNumeric(String value) {
+    return int.tryParse(value) != null;
+  }
   TextEditingController nameController = TextEditingController();
   TextEditingController citizenController = TextEditingController();
   TextEditingController yearController = TextEditingController();
@@ -22,18 +25,18 @@ class _UpdateProfileState extends State<UpdateProfile> {
   TextEditingController emailController = TextEditingController();
   addData(String name, String citizen, String year, String month, String day,
       String district, String metro, String ward, String email) async {
-    if (email == "" &&
-        name == "" &&
-        citizen == "" &&
-        year == "" &&
-        month == "" &&
-        day == "" &&
-        district == "" &&
-        metro == "" &&
-        ward == "") {
+    if (email.isEmpty ||
+        name.isEmpty ||
+        citizen.isEmpty ||
+        !isValidNumeric(year) ||
+        !isValidNumeric(month) ||
+        !isValidNumeric(day) ||
+        district.isEmpty ||
+        metro.isEmpty ||
+        ward.isEmpty) {
       UiHelper.customAlertbox(context, "Please fill the form");
     }
-    FirebaseFirestore.instance.collection("Users").doc(email).set({
+    await FirebaseFirestore.instance.collection("Users").doc(email).set({
       "Full Name": name,
       "Citizenship No.": citizen,
       "Year": year,
@@ -44,6 +47,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
       "Ward No.": ward,
       "Email": email,
     });
+    Navigator.pop(context);
   }
 
   @override

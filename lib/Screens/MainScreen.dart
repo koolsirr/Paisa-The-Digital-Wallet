@@ -1,8 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:majorproject_paisa/Screens/LoadMoney.dart';
 import 'package:majorproject_paisa/Screens/SendMoney.dart';
+
+import 'FetchUserData.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -12,7 +16,24 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  String email = FirebaseAuth.instance.currentUser?.email ?? '';
+  late DocumentSnapshot userSnapshot;
+  int balance = 0;
   bool isHidden = true;
+
+  @override
+  void initState() {
+    super.initState();
+    UserDataService.onUserDataUpdated = _fetchUserData;
+    _fetchUserData();
+  }
+
+  Future<void> _fetchUserData() async {
+    userSnapshot =
+        await FirebaseFirestore.instance.collection('Users').doc(email).get();
+    balance = userSnapshot['Balance'] ?? 0;
+    setState(() {});
+  }
 
   void toggleHidden() {
     setState(() {
@@ -67,9 +88,9 @@ class _MainScreenState extends State<MainScreen> {
                                         'xxxxx',
                                         style: TextStyle(fontSize: 25),
                                       )
-                                    : const Text(
-                                        '1000', //moneyyyy
-                                        style: TextStyle(fontSize: 25),
+                                    : Text(
+                                        '$balance', //moneyyyy
+                                        style: const TextStyle(fontSize: 25),
                                       ),
                               ),
                               SizedBox(

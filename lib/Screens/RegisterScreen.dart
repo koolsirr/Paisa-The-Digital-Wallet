@@ -31,6 +31,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       await FirebaseFirestore.instance.collection('Users').doc(email).set({
         'Email': email,
         'Full Name': fullName,
+        'Balance': 0
         // Add any other user-related data
       });
 
@@ -122,10 +123,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   signUp(emailController.text, passwordController.text,
                       nameController.text);
                 }, "Signup"),
-                // UiHelper.customButtom(() {
-                //   signUp(emailController.text.toString(),
-                //       passwordController.text.toString());
-                // }, "Signup")
               ],
             ),
           ),

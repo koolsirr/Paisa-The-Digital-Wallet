@@ -22,15 +22,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    // Set the callback function
     UserDataService.onUserDataUpdated = _fetchUserData;
-    // Call the function during initialization
     _fetchUserData();
   }
 
   Future<void> _fetchUserData() async {
     userName = await UserDataService.fetchUserData('Full Name');
-
     setState(() {});
   }
 
