@@ -10,7 +10,7 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
-  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -42,12 +42,12 @@ class _SendMoneyState extends State<SendMoney> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'UserName',
+                        'Email',
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
-                        userNameController,
-                        "Please enter the Username",
+                        emailController,
+                        "Please enter the Email",
                         false,
                         false,
                       ),

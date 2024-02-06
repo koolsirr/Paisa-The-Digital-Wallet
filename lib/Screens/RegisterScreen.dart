@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:majorproject_paisa/Screens/LoginScreen.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
+
+import 'OTP.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -13,34 +14,73 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
+
+  bool isValidNumeric(String value) {
+    return int.tryParse(value) != null;
+  }
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController citizenController = TextEditingController();
+  TextEditingController yearController = TextEditingController();
+  TextEditingController monthController = TextEditingController();
+  TextEditingController dayController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
+  TextEditingController metroController = TextEditingController();
+  TextEditingController wardController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  TextEditingController nameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
 
-  Future<void> signUp(String email, String password, String fullName) async {
-    if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
-      UiHelper.customAlertbox(context, "Please fill the form");
-      return;
-    }
+  signUp(String email, String password, String fullName) async {
+    // if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
+    //   UiHelper.customAlertbox(context, "Please fill the form");
+    //   return;
+    // }
     UserCredential? usercredential;
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-
-      // Add user data to Firestore with email as the document ID
-      await FirebaseFirestore.instance.collection('Users').doc(email).set({
-        'Email': email,
-        'Full Name': fullName,
-        'Balance': 0
-        // Add any other user-related data
-      });
-
-      // Navigate to the next screen (replace current screen)
-      Navigator.pushReplacement(context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()));
     } on FirebaseAuthException catch (ex) {
       UiHelper.customAlertbox(context, "Registration failed: ${ex.message}");
     }
+  }
+
+  addData(
+      String name,
+      String citizen,
+      String year,
+      String month,
+      String day,
+      String district,
+      String metro,
+      String ward,
+      String email,
+      String phoneNumber,
+      ) async {
+    if (email.isEmpty ||
+        name.isEmpty ||
+        citizen.isEmpty ||
+        !isValidNumeric(year) ||
+        !isValidNumeric(month) ||
+        !isValidNumeric(day) ||
+        district.isEmpty ||
+        metro.isEmpty ||
+        ward.isEmpty || phoneNumber.isEmpty) {
+      UiHelper.customAlertbox(context, "Please fill the form");
+    }
+    await FirebaseFirestore.instance.collection("Users").doc(email).set({
+      "Full Name": name,
+      "Citizenship No.": citizen,
+      "Year": year,
+      "Month": month,
+      "Day": day,
+      "District": district,
+      "Metropolitan": metro,
+      "Ward No.": ward,
+      "Email": email,
+      "Balance": 0,
+      "Phone Number": phoneNumber
+    });
   }
 
   @override
@@ -93,6 +133,98 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       const SizedBox(height: 24),
                       Text(
+                        'Citizenship No.',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 12),
+                      UiHelper.customTextField(
+                        citizenController,
+                        "Please Enter your Citizenship No.",
+                        false,
+                        false,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Date of Birth (AD)',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 12),
+                      Row(children: [
+                        Expanded(
+                          child: UiHelper.customTextField(
+                            yearController,
+                            "Year",
+                            false,
+                            true,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: UiHelper.customTextField(
+                            monthController,
+                            "Month",
+                            false,
+                            true,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: UiHelper.customTextField(
+                            dayController,
+                            "day",
+                            false,
+                            true,
+                          ),
+                        )
+                      ]),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Birth Place',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 12),
+                      Row(children: [
+                        Expanded(
+                          child: UiHelper.customTextField(
+                            districtController,
+                            "District",
+                            false,
+                            false,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: UiHelper.customTextField(
+                            metroController,
+                            "Metropolitan",
+                            false,
+                            false,
+                          ),
+                        ),
+                        const SizedBox(width: 15),
+                        Expanded(
+                          child: UiHelper.customTextField(
+                            wardController,
+                            "Ward No.",
+                            false,
+                            true,
+                          ),
+                        )
+                      ]),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Phone Number',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(height: 12),
+                      UiHelper.customTextField(
+                        phoneNumberController,
+                        "Please Enter your Phone Number",
+                        false,
+                        false,
+                      ),
+                      const SizedBox(height: 12),
+                      Text(
                         'Email',
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
@@ -115,13 +247,40 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         true,
                         false,
                       ),
-                      const SizedBox(height: 24),
+                      const SizedBox(height: 12),
                     ],
                   ),
                 ),
-                UiHelper.customButtom(() {
+                UiHelper.customButtom(() async {
+                  await FirebaseAuth.instance.verifyPhoneNumber(
+                      verificationCompleted:
+                          (PhoneAuthCredential credential) {},
+                      verificationFailed: (FirebaseAuthException ex) {},
+                      codeSent: (String verificationid, int? resendtoken) {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => OTPScreen(
+                                      verificationid: verificationid,
+                                    )));
+                      },
+                      codeAutoRetrievalTimeout: (String verificationId) {},
+                      phoneNumber: phoneNumberController.text.toString()
+                  );
                   signUp(emailController.text, passwordController.text,
                       nameController.text);
+                  addData(
+                      nameController.text.toString(),
+                      citizenController.text.toString(),
+                      yearController.text.toString(),
+                      monthController.text.toString(),
+                      dayController.text.toString(),
+                      districtController.text.toString(),
+                      metroController.text.toString(),
+                      wardController.text.toString(),
+                      emailController.text.toString(),
+                    phoneNumberController.text.toString()
+                  );
                 }, "Signup"),
               ],
             ),

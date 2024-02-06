@@ -15,6 +15,7 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePageState extends State<ProfilePage> {
   String? userName;
   String? userEmail;
+  String? phoneNumber;
 
   @override
   void initState() {
@@ -25,6 +26,7 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> _fetchUserData() async {
     userName = await UserDataService.fetchUserData('Full Name');
     userEmail = await UserDataService.fetchUserData('Email');
+    phoneNumber = await UserDataService.fetchUserData('Phone Number');
 
     setState(() {});
   }
@@ -42,7 +44,7 @@ class _ProfilePageState extends State<ProfilePage> {
         body:ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('$userName',
+              accountName: Text('$userName($phoneNumber) ' ,
                   style: TextStyle(color: Colors.black)),
               accountEmail: Text(
                 "$userEmail",
@@ -53,23 +55,11 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               decoration: const BoxDecoration(color: Colors.transparent),
             ),
-             ListTile(
-              leading: const Icon(Iconsax.document_upload),
-              title: const Text('Update Profile'),
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UpdateProfile()));
-              }
-            ),
+
             ListTile(
               leading: const Icon(Iconsax.logout),
               title: const Text('Logout'),
               onTap: logout,
-            ),
-            const ListTile(
-              leading: Icon(Iconsax.setting_2),
-              title: Text('Settings'),
             ),
           ],
         ),

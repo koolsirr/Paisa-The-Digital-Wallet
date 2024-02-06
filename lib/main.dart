@@ -9,6 +9,7 @@ import 'package:majorproject_paisa/Screens/ShowData.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/NotificationPage.dart';
+import 'Screens/OTP.dart';
 import 'Screens/PhoneNumber.dart';
 import 'Screens/ProfilePage.dart';
 import 'Screens/RegisterScreen.dart';
