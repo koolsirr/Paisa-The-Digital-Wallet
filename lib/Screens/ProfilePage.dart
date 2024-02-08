@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:majorproject_paisa/Screens/UpdateProfile.dart';
 import 'FetchUserData.dart';
+import 'VerificationPage.dart';
 import 'WelcomeScreen.dart';
 
 class ProfilePage extends StatefulWidget {

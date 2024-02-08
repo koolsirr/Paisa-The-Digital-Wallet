@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 
+import 'LoginScreen.dart';
 import 'OTP.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -14,7 +15,6 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   bool isValidNumeric(String value) {
     return int.tryParse(value) != null;
   }
@@ -30,12 +30,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController pinController = TextEditingController();
+  TextEditingController reEnterPasswordController = TextEditingController();
+  TextEditingController reEnterPinController = TextEditingController();
 
   signUp(String email, String password, String fullName) async {
-    // if (email.isEmpty || password.isEmpty || fullName.isEmpty) {
-    //   UiHelper.customAlertbox(context, "Please fill the form");
-    //   return;
-    // }
     UserCredential? usercredential;
     try {
       UserCredential userCredential = await FirebaseAuth.instance
@@ -56,7 +55,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       String ward,
       String email,
       String phoneNumber,
-      ) async {
+      String pin,) async {
     if (email.isEmpty ||
         name.isEmpty ||
         citizen.isEmpty ||
@@ -65,10 +64,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         !isValidNumeric(day) ||
         district.isEmpty ||
         metro.isEmpty ||
-        ward.isEmpty || phoneNumber.isEmpty) {
+        ward.isEmpty ||
+        phoneNumber.isEmpty) {
       UiHelper.customAlertbox(context, "Please fill the form");
     }
-    await FirebaseFirestore.instance.collection("Users").doc(email).set({
+    await FirebaseFirestore.instance.collection("Users").doc(phoneNumber).set({
       "Full Name": name,
       "Citizenship No.": citizen,
       "Year": year,
@@ -79,7 +79,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "Ward No.": ward,
       "Email": email,
       "Balance": 0,
-      "Phone Number": phoneNumber
+      "Phone Number": phoneNumber,
+      "Transaction Pin": pin,
     });
   }
 
@@ -92,8 +93,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
         leading: Builder(
             builder: (context) => IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
                 },
+
                 icon: const Icon(
                   Icons.arrow_back_ios_rounded,
                   color: Colors.black,
@@ -223,7 +230,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         false,
                         false,
                       ),
-                      const SizedBox(height: 12),
+                      const SizedBox(height: 24),
                       Text(
                         'Email',
                         style: Theme.of(context).textTheme.titleSmall,
@@ -247,11 +254,71 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         true,
                         false,
                       ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Re-Enter Password',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
                       const SizedBox(height: 12),
+                      UiHelper.customTextField(
+                        reEnterPasswordController,
+                        "Please Re-Enter your Password",
+                        true,
+                        false,
+                      ),
+                      const SizedBox(height: 24),
+                      Text(
+                        'Transaction pin',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      TextFormField(
+                        controller: pinController,
+                        textInputAction: TextInputAction.next,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter your transaction pin',
+                        ),
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        'Re-Enter Transaction pin',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      TextFormField(
+                        controller: reEnterPinController,
+                        textInputAction: TextInputAction.next,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                        decoration: const InputDecoration(
+                          hintText: 'Please Re-Enter your transaction pin',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
                     ],
                   ),
                 ),
                 UiHelper.customButtom(() async {
+                  if (passwordController.text != reEnterPasswordController.text) {
+                    UiHelper.customAlertbox(context, "Passwords do not match");
+                    return;
+                  }
+
+                  // Check if PINs match
+                  if (pinController.text != reEnterPinController.text) {
+                    UiHelper.customAlertbox(context, "PINs do not match");
+                    return;
+                  }
                   await FirebaseAuth.instance.verifyPhoneNumber(
                       verificationCompleted:
                           (PhoneAuthCredential credential) {},
@@ -265,8 +332,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                     )));
                       },
                       codeAutoRetrievalTimeout: (String verificationId) {},
-                      phoneNumber: phoneNumberController.text.toString()
-                  );
+                      phoneNumber: phoneNumberController.text.toString());
                   signUp(emailController.text, passwordController.text,
                       nameController.text);
                   addData(
@@ -279,8 +345,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       metroController.text.toString(),
                       wardController.text.toString(),
                       emailController.text.toString(),
-                    phoneNumberController.text.toString()
-                  );
+                      phoneNumberController.text.toString(),
+                      pinController.text.toString());
                 }, "Signup"),
               ],
             ),
