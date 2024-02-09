@@ -52,7 +52,7 @@ class _MainScreenState extends State<MainScreen> {
               Container(
                 height: 90,
                 decoration: const BoxDecoration(
-                    // color: Colors.grey,
+                  // color: Colors.grey,
                     gradient: LinearGradient(
                       colors: [Colors.blueAccent, Colors.blueGrey],
                       begin: Alignment.topLeft,
@@ -85,19 +85,19 @@ class _MainScreenState extends State<MainScreen> {
                                 width: 200,
                                 child: isHidden
                                     ? const Text(
-                                        'xxxxx',
-                                        style: TextStyle(fontSize: 25),
-                                      )
+                                  'xxxxx',
+                                  style: TextStyle(fontSize: 25),
+                                )
                                     : Text(
-                                        '$balance', //moneyyyy
-                                        style: const TextStyle(fontSize: 25),
-                                      ),
+                                  '$balance', //moneyyyy
+                                  style: const TextStyle(fontSize: 25),
+                                ),
                               ),
                               SizedBox(
                                 width: 50,
                                 child: IconButton(
                                   icon: Icon(
-                                    isHidden ? Iconsax.eye : Iconsax.eye_slash,
+                                    isHidden ? Iconsax.eye_slash : Iconsax.eye,
                                     size: 25,
                                     color: Colors.black,
                                   ),
@@ -116,7 +116,7 @@ class _MainScreenState extends State<MainScreen> {
                 height: 90,
                 child: Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 20),
                   child: Row(
                     children: [
                       GestureDetector(
@@ -131,7 +131,7 @@ class _MainScreenState extends State<MainScreen> {
                           decoration: BoxDecoration(
                             // color: Colors.black,
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(20)),
+                            const BorderRadius.all(Radius.circular(20)),
                             border: Border.all(color: Colors.black, width: 2),
                           ),
                           child: const Padding(
@@ -141,7 +141,7 @@ class _MainScreenState extends State<MainScreen> {
                                 Icon(Iconsax.wallet_add_14, size: 26),
                                 // const SizedBox(height: 8.0),
                                 Text(
-                                  'Load Money',
+                                  'Load Wallet',
                                   style: TextStyle(fontSize: 15.0),
                                 ),
                               ],
@@ -162,11 +162,11 @@ class _MainScreenState extends State<MainScreen> {
                         child: Container(
                           width: 151,
                           decoration: BoxDecoration(
-                              // color: Colors.blue,
+                            // color: Colors.blue,
                               borderRadius:
-                                  const BorderRadius.all(Radius.circular(20)),
+                              const BorderRadius.all(Radius.circular(20)),
                               border:
-                                  Border.all(color: Colors.black, width: 2)),
+                              Border.all(color: Colors.black, width: 2)),
                           child: const Padding(
                             padding: EdgeInsets.all(12.0),
                             child: Column(

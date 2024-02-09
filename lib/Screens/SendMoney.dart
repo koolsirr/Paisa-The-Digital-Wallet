@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:majorproject_paisa/Screens/HomeScreen.dart';
+import 'FetchUserData.dart';
 import 'UiHelper.dart';
 
 class SendMoney extends StatefulWidget {
@@ -10,8 +13,10 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
-  TextEditingController emailController = TextEditingController();
+  TextEditingController recipientPhoneNumberController = TextEditingController();
   TextEditingController amountController = TextEditingController();
+  TextEditingController pinController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,12 +47,12 @@ class _SendMoneyState extends State<SendMoney> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Email',
+                        'Phone Number',
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
-                        emailController,
-                        "Please enter the Email",
+                        recipientPhoneNumberController,
+                        "Please enter the Receiver's Phone Number",
                         false,
                         false,
                       ),
@@ -63,6 +68,35 @@ class _SendMoneyState extends State<SendMoney> {
                         true,
                       ),
                       const SizedBox(height: 12),
+                      Text(
+                        'Transaction pin',
+                        style: Theme.of(context).textTheme.titleSmall,
+                      ),
+                      const SizedBox(
+                        height: 12,
+                      ),
+                      TextFormField(
+                        controller: pinController,
+                        textInputAction: TextInputAction.next,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.number,
+                        maxLength: 6,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter your transaction pin',
+                        ),
+                      ),
+                      const SizedBox(height: 12,),
+                      UiHelper.customButtom(() async {
+                        String recipientPhoneNumber = recipientPhoneNumberController.text;
+                        String amount = amountController.text;
+                        String pin = pinController.text;
+
+                        if (recipientPhoneNumber.isEmpty || amount.isEmpty || pin.isEmpty) {
+                          UiHelper.customAlertbox(context,
+                              "Please fill all fields: recipient's phone number, amount, and transaction PIN");
+                          return;
+                        }
+                      }, 'Send Amount'),
                       const SizedBox(height: 12),
                     ],
                   ),

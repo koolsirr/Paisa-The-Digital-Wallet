@@ -17,6 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? userName;
   String? userEmail;
   String? phoneNumber;
+  String currentUserEmail = FirebaseAuth.instance.currentUser?.email ?? '';
 
   @override
   void initState() {

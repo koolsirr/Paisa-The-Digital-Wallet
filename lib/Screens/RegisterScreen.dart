@@ -45,17 +45,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   addData(
-      String name,
-      String citizen,
-      String year,
-      String month,
-      String day,
-      String district,
-      String metro,
-      String ward,
-      String email,
-      String phoneNumber,
-      String pin,) async {
+    String name,
+    String citizen,
+    String year,
+    String month,
+    String day,
+    String district,
+    String metro,
+    String ward,
+    String email,
+    String phoneNumber,
+    int pin,
+  ) async {
     if (email.isEmpty ||
         name.isEmpty ||
         citizen.isEmpty ||
@@ -68,7 +69,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         phoneNumber.isEmpty) {
       UiHelper.customAlertbox(context, "Please fill the form");
     }
-    await FirebaseFirestore.instance.collection("Users").doc(phoneNumber).set({
+    await FirebaseFirestore.instance.collection("Users").doc(email).set({
       "Full Name": name,
       "Citizenship No.": citizen,
       "Year": year,
@@ -100,7 +101,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ),
                   );
                 },
-
                 icon: const Icon(
                   Icons.arrow_back_ios_rounded,
                   color: Colors.black,
@@ -314,7 +314,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return;
                   }
 
-                  // Check if PINs match
                   if (pinController.text != reEnterPinController.text) {
                     UiHelper.customAlertbox(context, "PINs do not match");
                     return;
@@ -346,7 +345,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       wardController.text.toString(),
                       emailController.text.toString(),
                       phoneNumberController.text.toString(),
-                      pinController.text.toString());
+                      int.parse(pinController.text));
                 }, "Signup"),
               ],
             ),
