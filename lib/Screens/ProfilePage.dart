@@ -17,7 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
   String? userName;
   String? userEmail;
   String? phoneNumber;
-  String currentUserEmail = FirebaseAuth.instance.currentUser?.email ?? '';
+  String? imageUrl;
 
   @override
   void initState() {
@@ -29,13 +29,15 @@ class _ProfilePageState extends State<ProfilePage> {
     userName = await UserDataService.fetchUserData('Full Name');
     userEmail = await UserDataService.fetchUserData('Email');
     phoneNumber = await UserDataService.fetchUserData('Phone Number');
+    imageUrl = await UserDataService.fetchUserData('Image');
 
     setState(() {});
   }
 
-  logout()async{
+  logout() async {
     FirebaseAuth.instance.signOut().then((value) {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder:(context)=>const WelcomeScreen() ));
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const WelcomeScreen()));
     });
   }
 
@@ -43,28 +45,43 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-        body:ListView(
-          children: [
-            UserAccountsDrawerHeader(
-              accountName: Text('$userName($phoneNumber) ' ,
-                  style: TextStyle(color: Colors.black)),
-              accountEmail: Text(
-                "$userEmail",
-                style: TextStyle(color: Colors.black),
-              ),
-              currentAccountPicture: CircleAvatar(
-                child: ClipOval(child: Image.asset('assets/images/pic.png')),
-              ),
-              decoration: const BoxDecoration(color: Colors.transparent),
+      body: ListView(
+        children: [
+          UserAccountsDrawerHeader(
+            accountName: Text('$userName($phoneNumber) ',
+                style: const TextStyle(color: Colors.black)),
+            accountEmail: Text(
+              "$userEmail",
+              style: const TextStyle(color: Colors.black),
             ),
-
-            ListTile(
-              leading: const Icon(Iconsax.logout),
-              title: const Text('Logout'),
-              onTap: logout,
-            ),
-          ],
-        ),
+            currentAccountPicture: imageUrl != null
+                ? CircleAvatar(
+                    backgroundImage: NetworkImage(
+                        imageUrl!), // Use the uploaded image if available
+                  )
+                : const CircleAvatar(
+                    child: ClipOval(
+                        child: Icon(Iconsax.user)), // Fall back to a default image
+                  ),
+            decoration: const BoxDecoration(color: Colors.transparent),
+          ),
+          ListTile(
+            leading: const Icon(Iconsax.logout),
+            title: const Text('Logout'),
+            onTap: logout,
+          ),
+          ListTile(
+            leading: const Icon(Iconsax.user),
+            title: const Text('Update Profile'),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const UpdateProfile()));
+            },
+          ),
+        ],
+      ),
     );
   }
 }
