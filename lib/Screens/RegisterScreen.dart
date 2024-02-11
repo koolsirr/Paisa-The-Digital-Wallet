@@ -55,7 +55,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
     String ward,
     String email,
     String phoneNumber,
-    int pin,
+    String pin,
+    String balance,
   ) async {
     if (email.isEmpty ||
         name.isEmpty ||
@@ -79,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       "Metropolitan": metro,
       "Ward No.": ward,
       "Email": email,
-      "Balance": 0,
+      "Balance": balance,
       "Phone Number": phoneNumber,
       "Transaction Pin": pin,
     });
@@ -345,7 +346,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       wardController.text.toString(),
                       emailController.text.toString(),
                       phoneNumberController.text.toString(),
-                      int.parse(pinController.text));
+                      pinController.text.toString(),
+                    "".toString()
+                  );
                 }, "Signup"),
               ],
             ),

@@ -89,7 +89,7 @@ class _UpdateProfileState extends State<UpdateProfile> {
               radius: 80,
               backgroundImage: NetworkImage(imageUrl!), // Display uploaded image if available
             )
-                : CircleAvatar(
+                : const CircleAvatar(
                     radius: 80,
                     child: Icon(
                       Iconsax.user,

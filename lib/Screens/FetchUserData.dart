@@ -16,7 +16,6 @@ class UserDataService {
 
         if (querySnapshot.docs.isNotEmpty) {
           String? userData = querySnapshot.docs.first[fieldName] as String?;
-          // Notify the callback function about the data update
           if (onUserDataUpdated != null) {
             onUserDataUpdated!();
           }
@@ -34,4 +33,5 @@ class UserDataService {
       return null;
     }
   }
+
 }

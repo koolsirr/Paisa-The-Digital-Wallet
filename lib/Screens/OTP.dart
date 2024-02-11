@@ -1,11 +1,6 @@
-import 'dart:math';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:majorproject_paisa/Screens/HomeScreen.dart';
 import 'package:majorproject_paisa/Screens/LoginScreen.dart';
-import 'package:majorproject_paisa/Screens/UpdateProfile.dart';
-
 import 'UiHelper.dart';
 
 class OTPScreen extends StatefulWidget {
@@ -46,7 +41,7 @@ class _OTPScreenState extends State<OTPScreen> {
                         verificationId: widget.verificationid,
                         smsCode: otpController.text.toString());
                 FirebaseAuth.instance.signInWithCredential(credential).then((value){
-                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const UpdateProfile()));
+                  Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const LoginScreen()));
                 }
                 );
               } catch (ex) {
