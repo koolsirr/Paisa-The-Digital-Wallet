@@ -2,10 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
+import 'package:majorproject_paisa/Screens/KYCScreen.dart';
 import 'package:majorproject_paisa/Screens/LoadMoney.dart';
 import 'package:majorproject_paisa/Screens/CheckUser.dart';
 import 'package:majorproject_paisa/Screens/SendMoney.dart';
 import 'package:majorproject_paisa/Screens/ShowData.dart';
+import 'KYC/Face Verification/Face.dart';
 import 'Screens/HomeScreen.dart';
 import 'Screens/LoginScreen.dart';
 import 'Screens/NotificationPage.dart';
@@ -44,7 +46,7 @@ class MyApp extends StatelessWidget {
             inputDecorationTheme: const InputDecorationTheme(
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue)))),
-        initialRoute: 'check',
+        initialRoute: 'KYC',
         routes: {
           'welcome': (context) => const WelcomeScreen(),
           'login': (context) => const LoginScreen(),
@@ -61,6 +63,8 @@ class MyApp extends StatelessWidget {
           'load' : (context) => const LoadMoney(),
           'show' : (context) => const ShowData(),
           'update' : (context) => const UpdateProfile(),
+          'KYC' :(context) => const KYCScreen(),
+
         }
     );
   }

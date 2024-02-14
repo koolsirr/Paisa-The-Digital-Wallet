@@ -46,17 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: Text('Hi, $userName'),
         automaticallyImplyLeading: false,
-        actions: [
-          Builder(
-              builder: (context) => IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const NotificationPage()));
-                  },
-                  icon: const Icon(Iconsax.notification))),
-        ],
         backgroundColor: Colors.white,
         elevation: 0,
         iconTheme: const CupertinoIconThemeData(color: Colors.black),

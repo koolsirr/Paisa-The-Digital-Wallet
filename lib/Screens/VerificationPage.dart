@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:majorproject_paisa/Screens/MainScreen.dart';
-import 'package:quickalert/quickalert.dart' show QuickAlert, QuickAlertType;
 import 'package:pinput/pinput.dart';
 
 import 'LoginScreen.dart';

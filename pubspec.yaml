@@ -38,12 +38,14 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_auth: ^4.16.0
   image_picker: ^1.0.7
-  quickalert: ^1.0.1
   pinput: ^3.0.0
   curved_navigation_bar: ^1.0.3
   iconsax: ^0.0.8
   cloud_firestore: ^4.15.2
   firebase_storage: ^11.6.5
+  flutter_face_api: ^5.2.3
+  flutter_face_core: ^5.2.0
+  image_cropper: ^5.0.1
 
 dev_dependencies:
   flutter_test:
