@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:majorproject_paisa/KYC/OCR/OCR.dart';
 import 'package:majorproject_paisa/Screens/ForgotPassword.dart';
 import 'package:majorproject_paisa/Screens/KYCScreen.dart';
 import 'package:majorproject_paisa/Screens/LoadMoney.dart';

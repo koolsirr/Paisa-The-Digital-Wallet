@@ -1,15 +1,22 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:convert';
 import 'dart:io' as io;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_face_api/face_api.dart' as Regula;
+import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:majorproject_paisa/Screens/KYCScreen.dart';
+import 'package:majorproject_paisa/Screens/LoginScreen.dart';
+
+import '../OCR/OCR.dart';
 
 
 class FaceVerification extends StatefulWidget {
-  var enteredEmail; //widget.enteredEmail garera use garne
+  var enteredEmail;
+
   FaceVerification({super.key, required this.enteredEmail});
 
   @override
@@ -17,12 +24,13 @@ class FaceVerification extends StatefulWidget {
 }
 
 class _FaceVerificationState extends State<FaceVerification> {
-
   String? front;
   var image1 = new Regula.MatchFacesImage();
   var image2 = new Regula.MatchFacesImage();
   var img1 = Image.asset('assets/images/logo.png');
-  var img2 = Image.asset('assets/images/portrait.png');
+  var img2 = Image.asset('assets/images/document.png');
+  String? userEmail;
+  String? imageUrl;
   String _similarity = "nil";
 
   @override
@@ -42,39 +50,35 @@ class _FaceVerificationState extends State<FaceVerification> {
   }
 
   showAlertDialog(BuildContext context, bool first) => showDialog(
-      context: context,
-      builder: (BuildContext context) =>
-          AlertDialog(title: Text("Use Camera?"), actions: [
-            // ignore: deprecated_member_use
-            // TextButton(
-            //     child: Text("Use gallery"),
-            //     onPressed: () {
-            //       Navigator.of(context, rootNavigator: true).pop();
-            //       ImagePicker()
-            //           .pickImage(source: ImageSource.gallery)
-            //           .then((value) => {
-            //         setImage(
-            //             first,
-            //             io.File(value!.path).readAsBytesSync(),
-            //             Regula.ImageType.PRINTED)
-            //       });
-            //     }),
-            // // ignore: deprecated_member_use
-            TextButton(
-                child: Text("Use camera"),
-                onPressed: () {
-                  Navigator.of(context, rootNavigator: true).pop();
-                  ImagePicker()
-                      .pickImage(source: ImageSource.camera)
-                      .then((value) => {
-                    setImage(
-                        first,
-                        io.File(value!.path).readAsBytesSync(),
-                        Regula.ImageType.PRINTED)
-                  });
-                }
-                )
-          ]));
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+      title: Text("Use Camera?"),
+      actions: [
+        TextButton(
+          child: const Row(
+            children: [
+              Icon(Iconsax.tick_circle,color: Colors.black), // Add a check icon
+              SizedBox(width: 8.0), // Add some spacing between the icon and text
+              Text("Yes",style: TextStyle(
+                color: Colors.black
+              )),
+            ],
+          ),
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+            ImagePicker()
+                .pickImage(source: ImageSource.camera)
+                .then((value) => {
+              setImage(
+                  first,
+                  io.File(value!.path).readAsBytesSync(),
+                  Regula.ImageType.PRINTED)
+            });
+          },
+        ),
+      ],
+    ),
+  );
 
   setImage(bool first, Uint8List? imageFile, int type) {
     if (imageFile == null) return;
@@ -108,37 +112,56 @@ class _FaceVerificationState extends State<FaceVerification> {
         var split = Regula.MatchFacesSimilarityThresholdSplit.fromJson(
             json.decode(str));
         setState(() => _similarity = split!.matchedFaces.length > 0
-            ? ((split.matchedFaces[0]!.similarity! * 100).toStringAsFixed(2) +
+            ? ((split.matchedFaces[0]!.similarity! * 100)
+            .toStringAsFixed(2) +
             "%")
             : "error");
       });
     });
   }
 
+  // Function to check if the button should be enabled
+  bool isButtonEnabled() {
+    double similarity = double.tryParse(_similarity.replaceAll("%", "")) ?? 0;
+    return similarity > 77;
+  }
+
+  // Function to handle button press
+  void _handleButtonPress() {
+    var enteredEmail = widget.enteredEmail;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => OCR(enteredEmail: enteredEmail), // Replace YourSeparatePage with your actual page
+      ),
+    );
+  }
 
   Widget createButton(String text, VoidCallback onPress) => Container(
-    // ignore: deprecated_member_use
     width: 250,
-    // ignore: deprecated_member_use
     child: TextButton(
         style: ButtonStyle(
-          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-          backgroundColor: MaterialStateProperty.all<Color>(Colors.black12),
+          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+          backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
         ),
         onPressed: onPress,
         child: Text(text)),
   );
 
   Widget createImage(image, VoidCallback onPress) => Material(
-      child: InkWell(
-        onTap: onPress,
-        child: Container(
-          height: 200,
-          width: double.infinity,
-          child: Image(height: 150, width: 150, image: image),
+    child: InkWell(
+      onTap: onPress,
+      child: Container(
+        height: 200,
+        width: double.infinity,
+        child: Image(height: 150, width: 150, image: image),
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black),
+          borderRadius: BorderRadius.circular(12.0),
         ),
-      ));
-
+      ),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -151,42 +174,67 @@ class _FaceVerificationState extends State<FaceVerification> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const KYCScreen()
-                        ));
+                        builder: (context) => const KYCScreen()));
               },
               icon: const Icon(
                 Icons.arrow_back_ios_rounded,
                 color: Colors.black,
               ))),
     ),
-    body: Container(
-        margin: EdgeInsets.fromLTRB(0, 0, 0, 100),
-        width: double.infinity,
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text('Citizenship Front'),
-                SizedBox(height: 10),
-                createImage(img1.image, () => showAlertDialog(context, true)),
-                SizedBox(height: 10,),
-                Text('Your Photo'),
-                SizedBox(height: 10,),
-                createImage(img2.image, () => showAlertDialog(context, false)),
-                Container(margin: EdgeInsets.fromLTRB(0, 0, 0, 15)),
-                createButton("Match", () => matchFaces()),
-                Container(
-                    margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("Similarity: " + _similarity,
-                            style: TextStyle(fontSize: 18)),
-                      ],
-                    ))
-              ]),
-        )),
+    body: SingleChildScrollView(
+      child: Container(
+          margin: EdgeInsets.fromLTRB(0, 0, 0, 100),
+          width: double.infinity,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 10),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text('${widget.enteredEmail}'),
+                  SizedBox(height: 10,),
+                  Text('Please upload the required images',
+                    style: TextStyle(
+                      fontSize: 20
+                    ),
+                  ),
+                  SizedBox(height: 10,),
+                  Text('Citizenship Front'),
+                  SizedBox(height: 10),
+                  Container(
+                    height: 220,
+                    width: double.infinity,
+                    child: createImage(
+                        img1.image, () => showAlertDialog(context, true)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text('Your Photo'),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    height: 220,
+                    width: double.infinity,
+                    child: createImage(
+                        img2.image, () => showAlertDialog(context, false)),
+                  ),
+                  Container(margin: EdgeInsets.fromLTRB(0, 0, 0, 15)),
+                  createButton("Match", () => matchFaces()),
+                  Container(
+                      margin: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Similarity: " + _similarity,
+                              style: TextStyle(fontSize: 18)),
+                        ],
+                      )),
+                  SizedBox(height: 20,),
+                  if (isButtonEnabled())
+                    createButton("Proceed to OCR", () => _handleButtonPress()),
+                ]),
+          )),
+    ),
   );
-
 }
