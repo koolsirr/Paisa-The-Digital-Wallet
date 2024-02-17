@@ -97,6 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
+  document_analysis:
+    dependency: "direct main"
+    description:
+      name: document_analysis
+      sha256: d217b3cff2fe2447ac296cfb059e258537d61e12959df5ea9fb4963c2b8acee6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.0"
   fake_async:
     dependency: transitive
     description:

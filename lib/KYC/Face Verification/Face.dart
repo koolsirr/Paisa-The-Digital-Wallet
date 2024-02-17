@@ -27,8 +27,8 @@ class _FaceVerificationState extends State<FaceVerification> {
   String? front;
   var image1 = new Regula.MatchFacesImage();
   var image2 = new Regula.MatchFacesImage();
-  var img1 = Image.asset('assets/images/logo.png');
-  var img2 = Image.asset('assets/images/document.png');
+  var img1 = Image.asset('assets/images/document.png');
+  var img2 = Image.asset('assets/images/portrait.png');
   String? userEmail;
   String? imageUrl;
   String _similarity = "nil";

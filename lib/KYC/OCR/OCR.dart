@@ -9,8 +9,8 @@ import 'image_picker_class.dart';
 import 'modal_dialog.dart';
 
 class OCR extends StatefulWidget {
-  final String enteredEmail;
-  const OCR({Key? key, required this.enteredEmail}) : super(key: key);
+  var enteredEmail;
+  OCR({Key? key, required this.enteredEmail}) : super(key: key);
 
   @override
   State<OCR> createState() => _OCRState();
@@ -58,11 +58,13 @@ class _OCRState extends State<OCR> {
                     if (value != '') {
                       imageCropperView(value, context).then((value) {
                         if (value != '') {
+                          var enteredEmail = widget.enteredEmail;
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
                               builder: (_) => RecognizePage(
                                 path: value,
+                                  enteredEmail: enteredEmail
                               ),
                             ),
                           );

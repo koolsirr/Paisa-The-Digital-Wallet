@@ -47,6 +47,7 @@ dependencies:
   flutter_face_core: ^5.2.0
   image_cropper: ^5.0.1
   google_mlkit_text_recognition: ^0.11.0
+  document_analysis: ^0.2.0
 
 dev_dependencies:
   flutter_test:

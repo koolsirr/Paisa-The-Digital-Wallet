@@ -5,7 +5,8 @@ import 'package:google_mlkit_text_recognition/google_mlkit_text_recognition.dart
 
 class RecognizePage extends StatefulWidget {
   final String? path;
-  const RecognizePage({Key? key, this.path}) : super(key: key);
+  var enteredEmail;
+  RecognizePage({Key? key, this.path, required enteredEmail}) : super(key: key);
 
   @override
   State<RecognizePage> createState() => _RecognizePageState();
@@ -14,7 +15,7 @@ class RecognizePage extends StatefulWidget {
 class _RecognizePageState extends State<RecognizePage> {
   bool _isBusy = false;
 
-  TextEditingController controller = TextEditingController();
+  TextEditingController ocrController = TextEditingController();
 
   @override
   void initState() {
@@ -31,17 +32,17 @@ class _RecognizePageState extends State<RecognizePage> {
         appBar: AppBar(title: const Text("recognized page")),
         body: _isBusy == true
             ? const Center(
-          child: CircularProgressIndicator(),
-        )
+                child: CircularProgressIndicator(),
+              )
             : Container(
-          padding: const EdgeInsets.all(20),
-          child: TextFormField(
-            maxLines: MediaQuery.of(context).size.height.toInt(),
-            controller: controller,
-            decoration:
-            const InputDecoration(hintText: "Text goes here..."),
-          ),
-        ));
+                padding: const EdgeInsets.all(20),
+                child: TextFormField(
+                  maxLines: MediaQuery.of(context).size.height.toInt(),
+                  controller: ocrController,
+                  decoration:
+                      const InputDecoration(hintText: "Text goes here..."),
+                ),
+              ));
   }
 
   void processImage(InputImage image) async {
@@ -53,9 +54,9 @@ class _RecognizePageState extends State<RecognizePage> {
 
     log(image.filePath!);
     final RecognizedText recognizedText =
-    await textRecognizer.processImage(image);
+        await textRecognizer.processImage(image);
 
-    controller.text = recognizedText.text;
+    ocrController.text = recognizedText.text;
 
     ///End busy state
     setState(() {
