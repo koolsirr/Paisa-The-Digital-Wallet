@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:majorproject_paisa/KYC/Face%20Verification/Face.dart';
+import 'package:majorproject_paisa/KYC/OCR/OCR.dart';
 import 'package:majorproject_paisa/Screens/HomeScreen.dart';
 import 'package:majorproject_paisa/Screens/UiHelper.dart';
 import 'FetchUserData.dart';
@@ -76,11 +77,11 @@ class _KYCScreenState extends State<KYCScreen> {
                   const MaterialStatePropertyAll(Colors.blueAccent),
                 ),
                 onPressed: () {
-                  String enteredEmail = emailController.text;
+                  String email = emailController.text;
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FaceVerification(enteredEmail: enteredEmail),
+                      builder: (context) => OCR(enteredEmail: email),
                     ),
                   );
                 },

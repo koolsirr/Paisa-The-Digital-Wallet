@@ -19,6 +19,7 @@ class OCR extends StatefulWidget {
 class _OCRState extends State<OCR> {
   var img2 = Image.asset('assets/images/document.png');
   String? selectedImagePath;
+  String? Email;
 
   Widget createImage(image, VoidCallback onPress) => Material(
         child: InkWell(
@@ -58,13 +59,13 @@ class _OCRState extends State<OCR> {
                     if (value != '') {
                       imageCropperView(value, context).then((value) {
                         if (value != '') {
-                          var enteredEmail = widget.enteredEmail;
+                          Email = widget.enteredEmail;
                           Navigator.push(
                             context,
                             CupertinoPageRoute(
                               builder: (_) => RecognizePage(
                                 path: value,
-                                  enteredEmail: enteredEmail
+                                  enteredEmail: Email
                               ),
                             ),
                           );

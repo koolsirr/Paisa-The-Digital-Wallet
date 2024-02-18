@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  camera: ^0.10.0+4
   flutter:
     sdk: flutter
 
@@ -48,6 +49,7 @@ dependencies:
   image_cropper: ^5.0.1
   google_mlkit_text_recognition: ^0.11.0
   document_analysis: ^0.2.0
+  permission_handler: ^10.2.0
 
 dev_dependencies:
   flutter_test:
