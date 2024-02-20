@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
             inputDecorationTheme: const InputDecorationTheme(
                 focusedBorder: UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.blue)))),
-        initialRoute: 'KYC',
+        initialRoute: 'check',
         routes: {
           'welcome': (context) => const WelcomeScreen(),
           'login': (context) => const LoginScreen(),

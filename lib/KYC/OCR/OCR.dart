@@ -44,14 +44,16 @@ class _OCRState extends State<OCR> {
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text('${widget.enteredEmail}'),
-            SizedBox(height: 10),
-            Text('Please upload the required images',style: TextStyle(
+            const SizedBox(height: 10),
+            const Text('Please upload the required images',style: TextStyle(
               fontSize: 20
             )),
-
-            SizedBox(height: 100),
-            Text('Citizenship Back'),
-            SizedBox(height: 10),
+            const Text('*Crop the image for better result',style: TextStyle(
+              fontSize: 15
+            )),
+            const SizedBox(height: 100),
+            const Text('Citizenship Back'),
+            const SizedBox(height: 10),
             GestureDetector(
               onTap: () {
                 imagePickerModal(context, onCameraTap: () {

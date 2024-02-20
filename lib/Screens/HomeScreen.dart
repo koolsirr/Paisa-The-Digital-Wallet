@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _currentIndex = 1;
+  int _currentIndex = 0;
   String? userName;
   String currentUserEmail = FirebaseAuth.instance.currentUser?.email ?? '';
 
@@ -34,7 +34,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final List<Widget> _screens = [
-    const Statement(),
     const MainScreen(),
     const ProfilePage()
   ];
@@ -59,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
         index: _currentIndex,
         height: 55.0,
         items: const <Widget>[
-          Icon(Iconsax.book_1, size: 30),
           Icon(Iconsax.home, size: 30),
           Icon(Iconsax.profile_circle, size: 30),
         ],

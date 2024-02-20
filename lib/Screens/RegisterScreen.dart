@@ -72,13 +72,13 @@ class _RegisterScreenState extends State<RegisterScreen> {
     }
     await FirebaseFirestore.instance.collection("Users").doc(email).set({
       "Full Name": name,
-      "Citizenship No.": citizen,
+      "Citizenship Certificate No": citizen,
       "Year": year,
       "Month": month,
       "Day": day,
       "District": district,
       "Metropolitan": metro,
-      "Ward No.": ward,
+      "Ward No": ward,
       "Email": email,
       "Balance": balance,
       "Phone Number": phoneNumber,
@@ -179,7 +179,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         Expanded(
                           child: UiHelper.customTextField(
                             dayController,
-                            "day",
+                            "Day",
                             false,
                             true,
                           ),

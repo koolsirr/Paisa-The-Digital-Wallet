@@ -145,7 +145,7 @@ class _FaceVerificationState extends State<FaceVerification> {
           backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
         ),
         onPressed: onPress,
-        child: Text(text)),
+        child: Text(text,style: const TextStyle(color: Colors.white),)),
   );
 
   Widget createImage(image, VoidCallback onPress) => Material(

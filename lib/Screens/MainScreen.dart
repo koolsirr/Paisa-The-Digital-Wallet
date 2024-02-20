@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:majorproject_paisa/Screens/LoadMoney.dart';
 import 'package:majorproject_paisa/Screens/SendMoney.dart';
+import 'package:majorproject_paisa/Screens/Statements.dart';
 
 import 'FetchUserData.dart';
 
@@ -193,8 +194,22 @@ class _MainScreenState extends State<MainScreen> {
                 height: 5,
               ),
               Container(
-                color: Colors.green,
-                height: 30,
+                // height: 300,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(width: 2)
+                ),
+                child: Column(
+                  children: [
+                    Text('Statement',
+                      style: TextStyle(
+                        fontSize: 15
+                      ),
+                    ),
+
+                  ],
+                ),
               ),
             ],
           ),
