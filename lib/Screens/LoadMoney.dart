@@ -66,6 +66,11 @@ class _LoadMoneyState extends State<LoadMoney> {
               .doc(userEmail)
               .update({
             'Balance': newBalanceString,
+            'Transactions': FieldValue.arrayUnion([{
+              'amount': amountToAdd,
+              'type': 'credit', // Assuming loading money adds to the balance
+              'timestamp': Timestamp.now(),
+            }])
           });
 
           setState(() {

@@ -207,7 +207,6 @@ class _MainScreenState extends State<MainScreen> {
                         fontSize: 15
                       ),
                     ),
-
                   ],
                 ),
               ),
