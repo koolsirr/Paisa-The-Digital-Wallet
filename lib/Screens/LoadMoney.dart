@@ -1,11 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:majorproject_paisa/Screens/Banks.dart';
 import 'FetchUserData.dart';
 import 'UiHelper.dart';
 
 class LoadMoney extends StatefulWidget {
-  const LoadMoney({super.key});
+  const LoadMoney({Key? key}) : super(key: key);
 
   @override
   State<LoadMoney> createState() => _LoadMoneyState();
@@ -15,6 +16,7 @@ class _LoadMoneyState extends State<LoadMoney> {
   String? userEmail;
   String? userPin;
   num? userBalance;
+  String? balanceString;
 
   TextEditingController amountController = TextEditingController();
   TextEditingController pinController = TextEditingController();
@@ -27,8 +29,8 @@ class _LoadMoneyState extends State<LoadMoney> {
 
   Future<void> _fetchUserData() async {
     userEmail = await UserDataService.fetchUserData('Email');
-    String? balanceString = await UserDataService.fetchUserData('Balance');
-    userBalance = int.tryParse(balanceString ?? '0');
+    balanceString = await UserDataService.fetchUserData('Balance');
+    userBalance = int.tryParse(balanceString!);
     userPin = await UserDataService.fetchUserData('Transaction Pin');
     setState(() {});
   }
@@ -40,33 +42,46 @@ class _LoadMoneyState extends State<LoadMoney> {
       return;
     }
 
+    if (userEmail == null || userEmail!.isEmpty) {
+      UiHelper.customAlertbox(context, "User email not found");
+      return;
+    }
+
     if (pinController.text == userPin) {
-      num amountToAdd = int.tryParse(amountController.text) ?? 0;
-      num newBalance = (userBalance ?? 0) + amountToAdd;
+      num amountToAdd = int.tryParse(amountController.text) as num;
+      num newBalance = (userBalance)! + amountToAdd;
 
       String newBalanceString = newBalance.toString();
 
       try {
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(userEmail)
-            .update({
-          'Balance': newBalanceString,
-        });
+        User? user = FirebaseAuth.instance.currentUser;
 
-        setState(() {
-          userBalance = newBalance;
-        });
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('Users')
+            .where('Email', isEqualTo: user?.email)
+            .get();
 
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text('Money loaded successfully!'),
-            duration: Duration(seconds: 2),
-          ),
-        );
-        amountController.clear();
-        pinController.clear();
-      } catch (e) {
+          await FirebaseFirestore.instance
+              .collection('Users')
+              .doc(userEmail)
+              .update({
+            'Balance': newBalanceString,
+          });
+
+          setState(() {
+            userBalance = newBalance;
+          });
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Money loaded successfully!'),
+              duration: Duration(seconds: 2),
+            ),
+          );
+          amountController.clear();
+          pinController.clear();
+        }catch (e) {
+        print(e.toString());
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Error loading money. Please try again later.'),
@@ -117,8 +132,10 @@ class _LoadMoneyState extends State<LoadMoney> {
                       const SizedBox(height: 12),
                       const Banks(),
                       const SizedBox(height: 24),
-                      const Text(
+                      Text('$userEmail,$userBalance'),
+                      Text(
                         'Amount',
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
@@ -130,7 +147,7 @@ class _LoadMoneyState extends State<LoadMoney> {
                       const SizedBox(height: 24),
                       Text(
                         'Transaction pin',
-                        style: Theme.of(context).textTheme.titleSmall,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 12),
                       TextFormField(

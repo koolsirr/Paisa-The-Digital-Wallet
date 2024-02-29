@@ -32,7 +32,7 @@ class _MainScreenState extends State<MainScreen> {
   Future<void> _fetchUserData() async {
     userSnapshot =
         await FirebaseFirestore.instance.collection('Users').doc(email).get();
-    balance = userSnapshot['Balance'] ?? 0;
+    balance = int.parse(userSnapshot['Balance']);
     setState(() {});
   }
 
