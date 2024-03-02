@@ -6,13 +6,14 @@ import 'FetchUserData.dart';
 import 'UiHelper.dart';
 
 class LoadMoney extends StatefulWidget {
-  const LoadMoney({Key? key}) : super(key: key);
+  const LoadMoney({super.key});
 
   @override
   State<LoadMoney> createState() => _LoadMoneyState();
 }
 
 class _LoadMoneyState extends State<LoadMoney> {
+
   String? userEmail;
   String? userPin;
   num? userBalance;
@@ -49,6 +50,16 @@ class _LoadMoneyState extends State<LoadMoney> {
 
     if (pinController.text == userPin) {
       num amountToAdd = int.tryParse(amountController.text) as num;
+
+      if (amountToAdd > 100000) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Amount cannot exceed Rs. 100000'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+        return;
+      }
       num newBalance = (userBalance)! + amountToAdd;
 
       String newBalanceString = newBalance.toString();
@@ -137,7 +148,6 @@ class _LoadMoneyState extends State<LoadMoney> {
                       const SizedBox(height: 12),
                       const Banks(),
                       const SizedBox(height: 24),
-                      Text('$userEmail,$userBalance'),
                       Text(
                         'Amount',
                         style: Theme.of(context).textTheme.titleMedium,

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +14,63 @@ class SendMoney extends StatefulWidget {
 }
 
 class _SendMoneyState extends State<SendMoney> {
-  TextEditingController recipientPhoneNumberController = TextEditingController();
+
+  String? senderEmail;
+  String? receiverEmail;
+  String? userPin;
+  num? senderBalance;
+  num? receiverBalance;
+  String? senderBalanceString;
+  String? receiverBalanceString;
+
+  TextEditingController recipientEmailController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController pinController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchUserData();
+     // Call the function during initialization
+  }
+
+  Future<void> _fetchUserData() async {
+    senderEmail = await UserDataService.fetchUserData('Email');
+    senderBalanceString = await UserDataService.fetchUserData('Balance');
+    senderBalance = int.tryParse(senderBalanceString!);
+    userPin = await UserDataService.fetchUserData('Transaction Pin');
+    setState(() {});
+  }
+
+  Future<void> fetchUserDataOfAnotherUser(String userEmail) async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userEmail)
+          .get();
+
+      if (userSnapshot.exists) {
+        // Document exists, retrieve data
+        receiverEmail = userSnapshot['Email'];
+        receiverBalanceString = userSnapshot['Balance'];
+        receiverBalance = int.parse(receiverBalanceString!);
+
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('User not Found.'),
+              duration: Duration(seconds: 2),
+            ));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Error fetching data.'),
+            duration: Duration(seconds: 2),
+          ));
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +102,12 @@ class _SendMoneyState extends State<SendMoney> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        'Phone Number',
+                        'E-mail',
                       ),
                       const SizedBox(height: 12),
                       UiHelper.customTextField(
-                        recipientPhoneNumberController,
-                        "Please enter the Receiver's Phone Number",
+                        recipientEmailController,
+                        "Please enter the Receiver's E-mail",
                         false,
                         false,
                       ),
@@ -87,7 +142,7 @@ class _SendMoneyState extends State<SendMoney> {
                       ),
                       const SizedBox(height: 12,),
                       UiHelper.customButtom(() async {
-                        String recipientPhoneNumber = recipientPhoneNumberController.text;
+                        String recipientPhoneNumber = recipientEmailController.text;
                         String amount = amountController.text;
                         String pin = pinController.text;
 

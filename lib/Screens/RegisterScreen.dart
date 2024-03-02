@@ -132,11 +132,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style: Theme.of(context).textTheme.titleSmall,
                       ),
                       const SizedBox(height: 12),
-                      UiHelper.customTextField(
-                        nameController,
-                        "Please Enter your Name",
-                        false,
-                        false,
+                      TextFormField(
+                        controller: nameController,
+                        textInputAction: TextInputAction.next,
+                        cursorColor: Colors.black,
+                        keyboardType: TextInputType.text,
+                        textCapitalization: TextCapitalization.characters,
+                        decoration: const InputDecoration(
+                          hintText: 'Please Enter your Full Name',
+                        ),
                       ),
                       const SizedBox(height: 24),
                       Text(
@@ -158,30 +162,48 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       const SizedBox(height: 12),
                       Row(children: [
                         Expanded(
-                          child: UiHelper.customTextField(
-                            yearController,
-                            "Year",
-                            false,
-                            true,
+                          child: TextFormField(
+                            controller: yearController,
+                            textInputAction: TextInputAction.next,
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            textCapitalization: TextCapitalization.characters,
+                            maxLength: 4,
+                            decoration: const InputDecoration(
+                              hintText: 'Year',
+                              counterText: '',
+                            ),
                           ),
                         ),
                         const SizedBox(width: 15),
                         Expanded(
-                          child: UiHelper.customTextField(
-                            monthController,
-                            "Month",
-                            false,
-                            true,
+                          child: TextFormField(
+                            controller: monthController,
+                            textInputAction: TextInputAction.next,
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            textCapitalization: TextCapitalization.characters,
+                            maxLength: 3,
+                            decoration: const InputDecoration(
+                              hintText: 'Month',
+                              counterText: '',
+                            ),
                           ),
                         ),
                         const SizedBox(width: 15),
                         Expanded(
-                          child: UiHelper.customTextField(
-                            dayController,
-                            "Day",
-                            false,
-                            true,
+                          child: TextFormField(
+                          controller: dayController,
+                          textInputAction: TextInputAction.next,
+                          cursorColor: Colors.black,
+                          keyboardType: TextInputType.text,
+                          textCapitalization: TextCapitalization.characters,
+                          maxLength: 2,
+                          decoration: const InputDecoration(
+                            hintText: 'Day',
+                            counterText: '',
                           ),
+                        ),
                         )
                       ]),
                       const SizedBox(height: 24),

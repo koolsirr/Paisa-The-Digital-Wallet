@@ -6,7 +6,6 @@ import 'package:iconsax/iconsax.dart';
 import 'package:majorproject_paisa/Screens/LoadMoney.dart';
 import 'package:majorproject_paisa/Screens/SendMoney.dart';
 import 'package:majorproject_paisa/Screens/Statements.dart';
-
 import 'FetchUserData.dart';
 
 class MainScreen extends StatefulWidget {
@@ -21,6 +20,7 @@ class _MainScreenState extends State<MainScreen> {
   late DocumentSnapshot userSnapshot;
   int balance = 0;
   bool isHidden = true;
+  List<dynamic> transactions = [];
 
   @override
   void initState() {
@@ -33,6 +33,8 @@ class _MainScreenState extends State<MainScreen> {
     userSnapshot =
         await FirebaseFirestore.instance.collection('Users').doc(email).get();
     balance = int.parse(userSnapshot['Balance']);
+    transactions = userSnapshot['Transactions'] ?? [];
+
     setState(() {});
   }
 
@@ -194,22 +196,48 @@ class _MainScreenState extends State<MainScreen> {
                 height: 5,
               ),
               Container(
-                // height: 300,
                 width: double.infinity,
+                height: 500,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(width: 2)
+                    borderRadius: const BorderRadius.all(Radius.circular(20)),
+                    border: Border.all(width: 2)
                 ),
                 child: Column(
                   children: [
-                    Text('Statement',
-                      style: TextStyle(
-                        fontSize: 15
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Text(
+                        'Statement',
+                        style: TextStyle(
+                          fontSize: 15,
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: transactions.length,
+                        itemBuilder: (context, index) {
+                          var transaction = transactions[index];
+                          var amount = transaction['amount'];
+                          var type = transaction['type'];
+                          return ListTile(
+                            leading: ColorFiltered(
+                              colorFilter: ColorFilter.mode(
+                                transaction['type'] == 'credit' ? Colors.green : Colors.red,
+                                BlendMode.srcIn,
+                              ),
+                              child: Icon(
+                                transaction['type'] == 'credit' ? Icons.add_circle : Icons.remove_circle,
+                              ),
+                            ),
+                            title: Text(type == 'credit' ? 'Rs. $amount' : 'Rs. $amount'),
+                          );
+                        },
                       ),
                     ),
                   ],
                 ),
-              ),
+              )
             ],
           ),
         ));
