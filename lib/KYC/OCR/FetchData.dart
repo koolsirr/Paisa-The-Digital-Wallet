@@ -27,3 +27,29 @@ class FetchData {
     }
   }
 }
+class FetchEmail {
+  static Function()? onUserDataUpdated; // Callback function
+
+  static Future<String?> fetchUserEmail(String email) async {
+    try {
+      DocumentSnapshot userSnapshot = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(email)
+          .get();
+
+      if (userSnapshot.exists) {
+        String? userEmail = userSnapshot.get('Email') as String?;
+        if (onUserDataUpdated != null) {
+          onUserDataUpdated!();
+        }
+        return userEmail;
+      } else {
+        print("Document not found for email: $email");
+        return null;
+      }
+    } catch (e) {
+      print("Error fetching user email: $e");
+      return null;
+    }
+  }
+}
